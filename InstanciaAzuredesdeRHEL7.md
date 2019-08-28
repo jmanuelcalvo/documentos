@@ -8,9 +8,15 @@
 ## Instalar python pip
 ```
 [root@localhost ~]# yum install python27-python-pip
+``` 
+
+## Ingresar al ambiente de scl - Setup and run software from Software Collection environment
+Esto permite que al momento de ejecutar el comando "scl enable python27 bash" se cree un ambiente llamado python27 donde se puedan instalar diferentes modulos de python solo para este ambiente
+
+```
 [root@localhost ~]# scl enable python27 bash
 ```
-## Instalar los modulos de Azure
+## Instalar los modulos pip (Python Package Index) relacionados con Azure
 ```
 [root@localhost ~]# pip install ansible[azure]
 Collecting ansible[azure]
