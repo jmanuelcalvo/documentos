@@ -18,7 +18,7 @@ Collecting ansible[azure]
 ...
 ```
 
-Descargar modulos adicionales para Azure
+## Garantizar que todos esten todos los modulos para para Azure
 ```
 [root@localhost ~]# vim requirements-azure.txt
 packaging
@@ -58,9 +58,9 @@ azure-mgmt-hdinsight==0.1.0
 azure-mgmt-devtestlabs==3.0.0
 azure-mgmt-loganalytics==0.2.0
 azure-mgmt-iothub==0.7.0
-```
-requirements-azure.txt
 
+[root@localhost ~]# pip install -r requirements-azure.txt
+```
 
 ## Loguearse en Azure se tienen 3 Opciones:
 
@@ -94,31 +94,7 @@ az login
 ```
 https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-yum?view=azure-cli-latest
 
-## Crear la llave para inyectar a la instancia
 
-```
-[root@localhost ~]# ssh-keygen
-Generating public/private rsa key pair.
-Enter file in which to save the key (/root/.ssh/id_rsa):
-Enter passphrase (empty for no passphrase):
-Enter same passphrase again:
-Your identification has been saved in /root/.ssh/id_rsa.
-Your public key has been saved in /root/.ssh/id_rsa.pub.
-The key fingerprint is:
-SHA256:rQbr0Hzp16Gh1TduxUv44TWfv838e9rF6i6FthQb8Sk root@localhost.localdomain
-The key's randomart image is:
-+---[RSA 2048]----+
-|                 |
-|            .    |
-|             o . |
-|         .  E o  |
-|      . S .. *.. |
-|     o o oo B.+=+|
-|    . + =o * *+oX|
-|     o +. o + oX=|
-|      . ..   ==+&|
-+----[SHA256]-----+ 
-```
 
 ## Ejecutar una instancia en Azure
 ```
@@ -182,16 +158,13 @@ The key's randomart image is:
       resource_group: myResourceGroup
       name: myVM
       vm_size: Standard_DS1_v2
-      admin_username: azureuser
-      ssh_password_enabled: false
-      #ssh_public_keys:
-      #  - path: /home/azureuser/.ssh/authorized_keys
-      #    key_data: /root/.ssh/id_rsa.pub
+      admin_username: jmanuel
+      admin_password: Password@123
       network_interfaces: myNIC
       image:
         offer: CentOS
         publisher: OpenLogic
-        sku: '7.5'
+        sku: 7.5
         version: latest
 
 [root@localhost ansible-playbooks]# ansible-playbook instancia.yml
