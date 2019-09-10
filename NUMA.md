@@ -1,11 +1,13 @@
 ### Verificar Latencia a nivel de NUMA
 
-´´´
+
 [root@compute-student02 ~]# curl -O http://10.11.5.7/~josegonz/mlc_v3.7.tgz
 [root@compute-student02 ~]# tar xvfz mlc_v3.7.tgz Linux/mlc
-´´´
+
+
 Imprima una matriz de latencias de memoria locales y de socket cruzado
-´´´
+
+
 [root@compute-student02 ~]# Linux/mlc --latency_matrix
 
 Intel(R) Memory Latency Checker - v3.7
@@ -17,11 +19,11 @@ Measuring idle latencies (in ns)...
 Numa node	     0	     1
        0	  77.9	 122.4
        1	 122.8	  76.8
-´´´
+
 
 Imprime una matriz de anchos de banda de memoria local y de socket cruzado
 
-´´´
+```
 [root@compute-student02 ~]# Linux/mlc --bandwidth_matrix
 Sample Output
 Intel(R) Memory Latency Checker - v3.7
@@ -36,7 +38,7 @@ Using Read-only traffic type
 Numa node	     0	     1
        0	27803.2	 6257.8
        1	 6233.3	27798.0
-´´´
+```
 
 
 ### CPU distribution and Affinity
