@@ -53,6 +53,8 @@ el numero 2 es por el numero de vcpus de la maquina
 stress: info: [31097] dispatching hogs: 2 cpu, 0 io, 0 vm, 0 hdd
 ```
 
+# Monitoreo
+
 ##Estresar la maquina a nivel de Memoria
 Primero necesitamos definir cuánto llenaremos la memoria. Si tiene 4Gb, puede llenar 1024 M * 4 asi:
 ```
