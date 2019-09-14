@@ -44,14 +44,14 @@ L3 cache:              46080K
 NUMA node0 CPU(s):     0,1
 Flags:                 fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx rdtscp lm constant_tsc rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm fsgsbase bmi1 avx2 smep bmi2 erms invpcid xsaveopt
 ```
-# Estresar la maquina a nivel de CPU
+#Estresar la maquina a nivel de CPU
 el numero 2 es por el numero de vcpus de la maquina
 ```
 [root@node3 ~]# stress -c 2
 stress: info: [31097] dispatching hogs: 2 cpu, 0 io, 0 vm, 0 hdd
 ```
 
-# Estresar la maquina a nivel de Memoria
+#Estresar la maquina a nivel de Memoria
 Primero necesitamos definir cuánto llenaremos la memoria. Si tiene 4Gb, puede llenar 1024 M * 4 asi:
 ```
 [root@node3 ~]# stress --vm 4 --vm-bytes 1024M
