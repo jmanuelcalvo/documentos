@@ -13,7 +13,7 @@ yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarc
 
 # Intalar las herramienta stress
 ```
-yum -y install stress
+yum install stress -y
 ```
 
 # Validar el numero de procesadores 
@@ -50,3 +50,22 @@ el numero 2 es por el numero de vcpus de la maquina
 [root@node3 ~]# stress -c 2
 stress: info: [31097] dispatching hogs: 2 cpu, 0 io, 0 vm, 0 hdd
 ```
+
+# Estresar la maquina a nivel de Memoria
+Primero necesitamos definir cuánto llenaremos la memoria. Si tiene 4Gb, puede llenar 1024 M * 4 asi:
+```
+[root@node3 ~]# stress --vm 4 --vm-bytes 1024M
+stress: info: [693] dispatching hogs: 0 cpu, 0 io, 4 vm, 0 hdd
+```
+
+
+# Monitoreo
+Mienstra se realiza las pruebas se pueden utilizar comandos como:
+```
+- vmstat
+- top
+- tload * paquete procps-ng
+- uptime
+```
+
+
