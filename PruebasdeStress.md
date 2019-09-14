@@ -22,7 +22,7 @@ yum install stress -y
 Architecture:          x86_64
 CPU op-mode(s):        32-bit, 64-bit
 Byte Order:            Little Endian
-CPU(s):                2
+**CPU(s):                2**
 On-line CPU(s) list:   0,1
 Thread(s) per core:    1
 Core(s) per socket:    2
@@ -61,7 +61,7 @@ stress: info: [693] dispatching hogs: 0 cpu, 0 io, 4 vm, 0 hdd
 ```
 
 
-# Monitoreo
+# Monitoreo
 Mienstra se realiza las pruebas se pueden utilizar comandos como:
 ```
 - vmstat
@@ -69,5 +69,3 @@ Mienstra se realiza las pruebas se pueden utilizar comandos como:
 - tload * paquete procps-ng
 - uptime
 ```
-
-
