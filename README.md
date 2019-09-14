@@ -1,2 +1,2 @@
 # documentacion
-Documentaciones puedo necesitar en el futuro
+Documentos con referenias de comandos que uso con frequencia 
