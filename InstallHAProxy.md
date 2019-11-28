@@ -110,3 +110,9 @@ Seteados en el archivo de configuracion principal
 
 ![Statics](images/statics.png)
 
+
+A traves de la herraminta ab (apache benckmark) la cual se encuentra en el paquete RPM (httpd-tools) podemos realizar pruebas de conexion al servidor para generar trafico
+```
+[root@jmanuel ~]# ab -n 100 -c 10 http://172.16.132.234/
+```
+Supongamos que queremos ver qué tan rápido nuestro sitio puede manejar 100 solicitudes, con un máximo de 10 solicitudes ejecutándose simultáneamente
