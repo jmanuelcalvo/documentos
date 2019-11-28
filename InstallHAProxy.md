@@ -64,11 +64,11 @@ De donde la IPs:
 ```
 
 Algunos de los parametros mas comunes a tener en cuenta son:
-
-* nbproc <value> # Número de cores de procesamiento en su maquina.
-* mode <value> # ‘http’ para sitios http y ‘tcp’ para sitios con https
-* balance <value> # Tipos de balanceo como ‘source’, ’roundrobin’ etc.
-
+```
+nbproc <value> # Número de cores de procesamiento en su maquina.
+mode <value> # ‘http’ para sitios http y ‘tcp’ para sitios con https
+balance <value> # Tipos de balanceo como ‘source’, ’roundrobin’ etc.
+```
 
 Iniciar los servicios
 ```
