@@ -1,11 +1,11 @@
-# Instalacion de HAProxy en Red Hat / CentOS
+# Instalacion de HAProxy en Red Hat / CentOS con Statics
 
 Instalacion del paquete HAProxy
 ```
 [root@jmanuel ~]# yum install haproxy
 ```
 
-En la configuracion mas basica, para realizar el balanceo del servicio HTTPD el archivo de configuracion puede quedar asi:
+En la configuracion mas basica, para realizar el balanceo de un servicio HTTP y HTTPS y habiliar las estadisticas el archivo de configuracion puede quedar asi:
 ```
 [root@jmanuel ~]# vim /etc/haproxy/haproxy.cfg
 global
@@ -38,6 +38,18 @@ defaults
     timeout check           10s
     maxconn                 3000
 
+# [Enable Site Statis]
+listen  stats   172.16.132.234:1936
+        mode            http
+        log             global
+        maxconn 10
+        stats enable
+        stats hide-version
+        stats refresh 30s
+        stats show-node
+        stats auth admin:password
+        stats uri  /haproxy?stats
+    
 # [HTTP Site Configuration]
 listen  http_web 172.16.132.1:80
         mode http
@@ -70,10 +82,31 @@ mode <value> # ‘http’ para sitios http y ‘tcp’ para sitios con https
 balance <value> # Tipos de balanceo como ‘source’, ’roundrobin’ etc.
 ```
 
-Iniciar los servicios
+Habilitar el puerto 1936 en SELinux para visualizar las estadisticas
+```
+[root@jmanuel ~]# semanage port -a -t http_port_t -p tcp 1936
+```
+
+Iniciar y habilitar los servicios
 ```
 [root@jmanuel ~]# systemctl start haproxy
+[root@jmanuel ~]# systemctl enable haproxy
 ```
         
-        
-        
+Realizar las pruebas de balanceo
+```
+[root@jmanuel ~]# curl  http://172.16.132.234/
+La direccion IPv4 del servidor es 172.16.132.234 
+
+[root@jmanuel ~]# curl  http://172.16.132.234/
+La direccion IPv4 del servidor es 172.16.132.232
+```
+
+Visualizar las estadisticas
+http://172.16.132.234:1936/haproxy?stats
+usuario: admin
+password: password
+Seteados en el archivo de configuracion principal
+
+![Statics](img/statics.png)
+
