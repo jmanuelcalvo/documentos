@@ -108,5 +108,5 @@ usuario: admin
 password: password
 Seteados en el archivo de configuracion principal
 
-![Statics](img/statics.png)
+![Statics](images/statics.png)
 
