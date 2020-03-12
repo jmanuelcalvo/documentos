@@ -83,6 +83,35 @@ Los valores del playbook y del survey deben coincidir
 ![Ref](images/tower12.png)
 
 
+Una vez adicionado el campo, click en Save sobre el SURVEY y click en Save sobre el TEMPLATE
+
+### 6. Validar que la plantilla funcione correctamente
+
+Dentro de la Resources -> Templates -> Playbook con contenido por variable -> click en el cohete
+
+![Ref](images/tower13.png)
+
+Rellenar los campos de los formularios NEXT -> LAUNCH
+
+![Ref](images/tower14.png)
+
+y Finalmente el playbook debe ejecutarse de forma satisfactoria
+
+![Ref](images/tower15.png)
+
+
+### 7. Validar la creacion del archivo y su contenido
+```
+[root@tower36 ~]# ssh 192.168.0.14
+root@192.168.0.14's password:
+cat[root@localhost ~]# cat /tmp/jmanuel.conf
+datos personalizados
+```
+
+
+
+
+
 
 
 
