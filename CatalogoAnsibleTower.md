@@ -1,4 +1,10 @@
-Una vez integrados el proveedor Ansible Tower en CloudForms se pueden crear catalogos que hagan el llamado a playbooks y ademas pasarle parametros desde Cloudforms asi:
+# Integracion de playbooks en Ansible tower con Red Hat CloudFoms
+
+Una vez integrados el proveedor Ansible Tower en CloudForms se pueden crear catalogos (un portal con un market place) que se encarguen de hacer el llamado a playbooks y ademas pasarle parametros desde formularios de Cloudforms.
+
+Para esto, es necesario primero realizar la configuracion del Ansible Tower con por lo menos Un proyecto/playbook/Plantilla
+
+## Pasos de configuracion de Ansible Tower
 
 ### 1. Crear proyecto Ansible Tower
 Resources -> Projects -> +
@@ -111,7 +117,7 @@ datos personalizados
 
 
 
-
+## Pasos de configuracion de CloudForms
 
 
 
