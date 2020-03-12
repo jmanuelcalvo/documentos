@@ -1,14 +1,22 @@
 Una vez integrados el proveedor Ansible Tower en CloudForms se pueden crear catalogos que hagan el llamado a playbooks y ademas pasarle parametros desde Cloudforms asi:
 
-# Crear proyecto y Template en Ansible Tower
+### 1. Crear proyecto Ansible Tower
+Resources -> Projects -> +
 
-1. En caso de no tener repositorio git para el Ansible Tower, crear una carpeta local para almacenar los playbooks
+![Ref](images/tower7.png)
+
+En caso de no tener repositorio git para el Ansible Tower, crear una carpeta local para almacenar los playbooks
 ```
 [root@tower36 ~]# mkdir /var/lib/awx/projects/cloudforms
 [root@tower36 ~]# chown awx:awx /var/lib/awx/projects/cloudforms/
 ```
 
-2. Crear el proyecto en Ansible Tower, que soporte la inyeccion de variables
+Una vez creada la carpeta, ya se debe visualizar a traves de la interfase de tower, ahi se debe seleccionar el SCM TYPE: Manual    La subcarpeta local del hosts de ansible tower y la carpeta creada en el paso anterior
+![Ref](images/tower8.png)
+
+
+### 2. Crear un playbook en Ansible, que soporte la inyeccion de variables
+Las variables que se ponen en este playbook basico, posteriormente seran enviadas a traves de un catalogo de CloudForms
 
 ```
 [root@tower36 ~]# cat <<EOF > /var/lib/awx/projects/cloudforms/archivo.yaml
@@ -29,7 +37,7 @@ Una vez integrados el proveedor Ansible Tower en CloudForms se pueden crear cata
 EOF
 ```
 
-3. Crear un inventario de hosts de pruebas, en el Ansible Tower
+### 3. Crear un inventario de hosts de pruebas, en el Ansible Tower
 Resources -> Inventories -> + -> Inventory
 
 ![Ref](images/tower1.png)
@@ -46,7 +54,7 @@ Adicionar la IP o nombre de la VM
 
 ![Ref](images/tower4.png)
 
-4. Almacenar las contraseñas de las VMs o crear credenciales
+### 4. Almacenar las contraseñas de las VMs o crear credenciales
 
 Resources -> Credentials -> + -> Inventory
 
@@ -56,8 +64,25 @@ En el tipo de credential, seleccionar Machine cuando se trata de una maquina con
 
 ![Ref](images/tower6.png)
 
+### 5. Crear una plantilla que se encargara de ejecutar el playbook
 
-Crear un playbook que 
+Dentro de Resources -> Templates -> + -> Job Template
+
+![Ref](images/tower9.png)
+
+Ahora se deben rellenar los campos realizados en los pasos anteriores, inventarios, proyecto, playbook, credenciales y click en SAVE
+
+![Ref](images/tower10.png)
+
+Como la idea es que el playbook reciba parametros, en este caso se debe adicionar sobre la pestaña SURVEY los siguiente
+
+![Ref](images/tower11.png)
+
+Los valores del playbook y del survey deben coincidir
+
+![Ref](images/tower12.png)
+
+
 
 
 
