@@ -169,9 +169,24 @@ y rellenar los datos para el archivo
 
 ![Ref](images/cf12.png)
 
+Para validar que el requerimiento se este ejecutando, se puede ingresar a Services -> Requests  y validar en que estado esta el ultimo requerimiento
+
+![Ref](images/cf13.png)
+
+Si el requerimiento se encuentra en estado finish, los sigueinte es entrar a la maquina fisica a realizar la respectiva validacion
+
+![Ref](images/cf14.png)
 
 
-
+```
+[root@tower36 ~]# ssh 192.168.0.14
+root@192.168.0.14's password:
+Last login: Thu Mar 12 20:31:18 2020 from 192.168.0.16
+[root@localhost ~]# cat /tmp/jmanuel.conf
+datos personalizados
+Archivo creado desde Cloudforms
+[root@localhost ~]#
+```
 
 
 
