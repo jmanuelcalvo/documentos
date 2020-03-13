@@ -117,8 +117,14 @@ datos personalizados
 
 
 
+
+
+
+
+
 ## Pasos de configuracion de CloudForms
 
+### 1. Crear el formulario (Dialog)
 Desde la interfase web de administrador de Cloudforms, lo primero que se debe es generar el formulario que recibira el servicion, para ello se debe ir a Automation -> Automate -> Customization
 
 ![Ref](images/cf1.png)
@@ -141,6 +147,8 @@ Referencia: https://access.redhat.com/solutions/3887651
 
 ![Ref](images/cf5.png)
 
+### 2. Crear el catalogo de servicios 
+
 Lo siguiente ahora es crear el catalogo, para ello hay que ir al menu Services -> Catalogs 
 
 ![Ref](images/cf6.png)
@@ -160,6 +168,8 @@ Seleccionar Catalog Item Type -> Ansible Tower
 y llenar los datos que CF obtiene del proveedor de automatizacion Ansible Tower ( si esta bien configurado el proveedor se pueden visualizar el template previamente creado
 
 ![Ref](images/cf10.png)
+
+### 3. Ordenar a traves del servicio la creacion de los recursos
 
 Es hora de realizar la prueba, en el menu -> Service -> Catalogs -> Service Catalogs -> Crear archivo con parametros -> Order
 
