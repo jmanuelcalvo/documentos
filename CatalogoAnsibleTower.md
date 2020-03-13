@@ -119,5 +119,63 @@ datos personalizados
 
 ## Pasos de configuracion de CloudForms
 
+Desde la interfase web de administrador de Cloudforms, lo primero que se debe es generar el formulario que recibira el servicion, para ello se debe ir a Automation -> Automate -> Customization
+
+![Ref](images/cf1.png)
+
+En el menu Service Dialogs -> All Dialogs
+
+![Ref](images/cf2.png)
+
+Configuration -> Add a new Dialog
+
+![Ref](images/cf3.png)
+
+Se deben llegar los datos del formulario, tenga en cuenta que en paso 2, a mano derecha esta los posibles campos que se le pueden adicionar al formulario, botones, areas de texto, tags, entre otros, esos iconos se pueden arrastrar para realizar el diseño del formulario, una vez arrastrados, en el punto 3 se puede editar dicha casilla
+
+![Ref](images/cf4.png)
+
+Y es justo aqui donde viene la magia de la integracion, ya que si en el playbook la variable que se le puede insertar se llama line1, entonces el campo del formulario del playbook este se debe llamar param_line1 asi:
+
+Referencia: https://access.redhat.com/solutions/3887651
+
+![Ref](images/cf5.png)
+
+Lo siguiente ahora es crear el catalogo, para ello hay que ir al menu Services -> Catalogs 
+
+![Ref](images/cf6.png)
+
+Ir al sub menu Catalog Items -> All Catalog Items
+
+![Ref](images/cf7.png)
+
+y en Configuration -> Add a New Catalog Item
+
+![Ref](images/cf8.png)
+
+Seleccionar Catalog Item Type -> Ansible Tower
+
+![Ref](images/cf9.png)
+
+y llenar los datos que CF obtiene del proveedor de automatizacion Ansible Tower ( si esta bien configurado el proveedor se pueden visualizar el template previamente creado
+
+![Ref](images/cf10.png)
+
+Es hora de realizar la prueba, en el menu -> Service -> Catalogs -> Service Catalogs -> Crear archivo con parametros -> Order
+
+![Ref](images/cf11.png)
+
+y rellenar los datos para el archivo
+
+![Ref](images/cf12.png)
+
+
+
+
+
+
+
+
+
 
 
