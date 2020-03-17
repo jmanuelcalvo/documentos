@@ -125,7 +125,7 @@ datos personalizados
 ## Pasos de configuracion de CloudForms
 
 ### 1. Crear el formulario (Dialog)
-Desde la interfase web de administrador de Cloudforms, lo primero que se debe es generar el formulario que recibira el servicion, para ello se debe ir a Automation -> Automate -> Customization
+Desde la interface web de administrador de Cloudforms, lo primero que se debe es generar el formulario que recibira el servicion, para ello se debe ir a Services -> Automate -> Customization
 
 ![Ref](images/cf1.png)
 
