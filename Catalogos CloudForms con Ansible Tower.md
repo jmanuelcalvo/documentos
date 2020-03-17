@@ -17,7 +17,7 @@ En caso de no tener repositorio git para el Ansible Tower, crear una carpeta loc
 [root@tower36 ~]# chown awx:awx /var/lib/awx/projects/cloudforms/
 ```
 
-Una vez creada la carpeta, ya se debe visualizar a traves de la interfase de tower, ahi se debe seleccionar el SCM TYPE: Manual    La subcarpeta local del hosts de ansible tower y la carpeta creada en el paso anterior
+Una vez creada la carpeta, ya se debe visualizar a traves de la interface de tower, ahi se debe seleccionar el SCM TYPE: Manual    La subcarpeta local del hosts de ansible tower y la carpeta creada en el paso anterior
 ![Ref](images/tower8.png)
 
 
