@@ -248,4 +248,50 @@ Este seria el playook que actualiza el DNS, es necesario tener instalado el paqu
 [root@server02 ~]# yum install python-dns
 ```
 
+Esto es gracias a un mensaje de error como este:
+```
+fatal: [172.16.132.245]: FAILED! => {"changed": false, "msg": "python library dnspython required: pip install dnspython"}
+```
 
+Una vez instalado el paquete, crear un playbook con el siguiente contenido
+```
+[root@server02 ~]# vim modify.yml
+---
+- name: Actualizar registro en el DNS
+  hosts: webservers
+  gather_facts: no
+  tasks:
+  - name: Add or modify ext3.jmanuelcalvo A to 192.168.1.3"
+    nsupdate:
+      key_algorithm: hmac-sha512
+      key_name: "mrslave.jmanuelcalvo.com"
+      key_secret: "wrm1CZ36Us0bNHn9c4K9tfS2p3bl4kBnvB+wcUynrzxa0vmjopqBzJ0p smOaA3owSLRtzfwNZ6FsDAJNjvIWhw=="
+      server: "server02.jmanuelcalvo.com"
+      zone: "jmanuelcalvo.com"
+      record: "ext3"
+      value: "192.168.1.3"
+```
+
+y probar que funcione correctamente
+```
+[root@server02 ~]# ansible-playbook modify.yml
+
+PLAY [Actualizar registro en el DNS] *********************************************************************************************************
+
+TASK [Add or modify ansible.example.org A to 192.168.1.1"] ***********************************************************************************
+changed: [172.16.132.245]
+
+PLAY RECAP ***********************************************************************************************************************************
+172.16.132.245             : ok=1    changed=1    unreachable=0    failed=0
+```
+
+
+El resultado deberia ser algo asi:
+```
+[root@server02 ~]# nslookup ext3.jmanuelcalvo.com
+Server:		127.0.0.1
+Address:	127.0.0.1#53
+
+Name:	ext3.jmanuelcalvo.com
+Address: 192.168.1.3
+```
