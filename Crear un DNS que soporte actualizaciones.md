@@ -240,3 +240,12 @@ zone "jmanuelcalvo.com" {
 
 Material de ayuda:
 https://dnns.no/dynamic-dns-with-bind-and-nsupdate.html
+
+## Bonus 
+
+Este seria el playook que actualiza el DNS, es necesario tener instalado el paquete python-dns:
+```
+[root@server02 ~]# yum install python-dns
+```
+
+
