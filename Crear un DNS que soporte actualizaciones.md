@@ -238,3 +238,5 @@ zone "jmanuelcalvo.com" {
 };
 ```
 
+Material de ayuda:
+https://dnns.no/dynamic-dns-with-bind-and-nsupdate.html
