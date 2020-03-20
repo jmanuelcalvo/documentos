@@ -211,7 +211,30 @@ Address: 192.168.1.2
 ```
 
 
+## NOTAS: 
+En caso de querer ser un poco mas restrictivo con la creacion de registros, en el archivo named.conf en la configuracion de la zona se pueden realizar configuraciones de este tipo:
 
 
 
+```
+zone "jmanuelcalvo.com" {
+    type master;
+    file "db.jmanuelcalvo.com.zone";
+    allow-update {
+        key mrslave.jmanuelcalvo.com.;
+    };
+};
+```
+
+o si solo desea permitir que la clave mrslave.jmanuelcalvo.com actualice el registro A de jmanuelcalvo.com, el archivo se vería así:
+
+```
+zone "jmanuelcalvo.com" {
+    type master;
+    file "db.jmanuelcalvo.com.zon";
+    update-policy {
+        grant mrslave.jmanuelcalvo.com. name jmanuelcalvo.com. A;
+    };
+};
+```
 
