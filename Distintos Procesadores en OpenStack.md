@@ -38,7 +38,7 @@ cpu_mode=custom
 cpu_model=IvyBridge
 ```
 
-3. REiniciar los servicios contenerizados realcionados con Nova
+3. Reiniciar los servicios contenerizados realcionados con Nova
 
 ```
 [root@overcloud-compute-0 ~]# docker restart nova_compute
@@ -46,6 +46,18 @@ nova_compute
 [root@overcloud-compute-0 ~]# docker restart nova_libvirt
 nova_libvirt
 ```
+
+4. Validar que los contenedores quedaron con los cambios realizados
+```
+docker exec  nova_compute grep mode /etc/nova/nova.conf |egrep -v '^#'
+```
+
+5. Por ultimo reiniciar las instancias virtuales, para que tomen los cambios del nova
+
+![Ref](img/livemigration1.png)
+
+![Ref](img/livemigration2.png)
+
 
 
 
