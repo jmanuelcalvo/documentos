@@ -80,5 +80,7 @@ docker exec  nova_compute grep mode /etc/nova/nova.conf |egrep -v '^#'
 
 
 ### NOTAS DE REFERENCIA
+
 https://access.redhat.com/solutions/3301301
+
 https://access.redhat.com/solutions/4162701
