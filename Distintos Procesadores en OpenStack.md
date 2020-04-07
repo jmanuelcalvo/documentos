@@ -1,3 +1,18 @@
+Ambiente:
+OpenStack version 13
+
+Luego de intentar realizar la migracion en vivo de instancias de OpenStack, se generaba un procedio a revisar los logs del nova en el momento de la migracion y se detecto el siguiente mensaje:
+
+
+```
+[root@overcloud-compute-0 ~]# cd /var/log/containers/nova/
+[root@overcloud-compute-0 nova]# tail -f nova-compute.log
+Refer to http://libvirt.org/html/libvirt-libvirt-host.html#virCPUCompareResult
+2020-04-07 13:24:20.590 8 ERROR oslo_messaging.rpc.server [req-e0754632-4c01-467c-8ca7-48ae26357c02 c928cb47fcab4408bfcc9ec23251a0c3 31cf116facb8447b891a55e222b9b4db - default default] Exception during message handling: InvalidCPUInfo: Unacceptable CPU info: CPU doesn't have compatibility.
+```
+
+Gracias a este mensaje se indentifica que las familias de los hypervisores es diferente, por lo que se procedio a realizar el siguiente procedimiento
+
 Validar la familia de procesadores:
 
 ```
