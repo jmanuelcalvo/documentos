@@ -54,9 +54,9 @@ docker exec  nova_compute grep mode /etc/nova/nova.conf |egrep -v '^#'
 
 5. Por ultimo reiniciar las instancias virtuales, para que tomen los cambios del nova
 
-![Ref](img/livemigration1.png)
+![Ref](images/livemigration1.png)
 
-![Ref](img/livemigration2.png)
+![Ref](images/livemigration2.png)
 
 
 
