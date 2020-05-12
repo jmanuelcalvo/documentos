@@ -7,6 +7,12 @@ Desde una de las maquinas de Ansible Tower se valida la conectividad con el sigu
 [root@localhost ~]# ldapsearch -x -LLL -h 10.42.0.50 -b dc=jmanuelcalvo,dc=com -D jmanuel@jmanuelcalvo.com -w ABCde123.
 ```
 
+
+## Parametros de Configuracion de Ansible Tower con Active Directory
+
+![Ansible Tower](images/ATldap1.png)
+
+
 ### LDAP USER SEARCH
 ```
 [
