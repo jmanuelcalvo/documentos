@@ -74,7 +74,7 @@ En este caso la organizacion en Ansible Tower es `Red Hat`
  "Red Hat": {
   "users": [
    "CN=AT_AUDITOR,CN=Users,DC=jmanuelcalvo,DC=com",
-   "CN=AT_USER,CN=Users,DC=jmanuelcalvo,DC=com"
+   "CN=AT_NORMAL,CN=Users,DC=jmanuelcalvo,DC=com"
   ],
   "admins": "CN=AT_ADMIN,CN=Users,DC=jmanuelcalvo,DC=com",
   "remove_admins": true
