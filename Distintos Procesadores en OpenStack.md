@@ -1,3 +1,5 @@
+# Configuracion manual de nodos compute de OpenStack con procesadores diferentes
+
 Ambiente:
 OpenStack version 13
 
