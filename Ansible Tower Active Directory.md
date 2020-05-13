@@ -14,7 +14,7 @@ Desde una de las maquinas de Ansible Tower se valida la conectividad con el sigu
 
 
 ### LDAP USER SEARCH
-```
+```bash
 [
  "DC=jmanuelcalvo,DC=com",
  "SCOPE_SUBTREE",
