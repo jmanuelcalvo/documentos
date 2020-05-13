@@ -7,11 +7,22 @@ Para este ejercicio se realiza la configuracion de un Directorio Activo que cont
 
 ![AD](images/ATldap2.png)
 
+y se crean 3 usuarios de prueba, cada usuario perteneces a un grupo 
+  - jmanuel_admin
+  - jmanuel_auditor
+  - jmanuel_normal
+
+![AD](images/ATldap4.png)
+
 
 Desde una de las maquinas de Ansible Tower se valida la conectividad con el siguiente comando:
 ```
 [root@localhost ~]# ldapsearch -x -LLL -h 10.42.0.50 -b dc=jmanuelcalvo,dc=com -D jmanuel@jmanuelcalvo.com -W 
 ```
+
+> **Nota**
+>
+> Si no cuenta con el cliente ldapsearch instale el paquete openldap-clientes
 
 Una vez se garantice la conectividad se procede a realizar la configuracion en Ansible Tower
 
@@ -27,6 +38,29 @@ Los siguientes parametros van a definir el comportamiento de la autenticacion
  "DC=jmanuelcalvo,DC=com",
  "SCOPE_SUBTREE",
  "(sAMAccountName=%(user)s)"
+]
+```
+> **NOTA**
+>
+> Para múltiples consultas de búsqueda, la sintaxis adecuada es:
+
+```
+[
+  [
+  "OU=Users,DC=northamerica,DC=acme,DC=com",
+  "SCOPE_SUBTREE",
+  "(sAMAccountName=%(user)s)"
+  ],
+  [
+  "OU=Users,DC=apac,DC=corp,DC=com",
+  "SCOPE_SUBTREE",
+  "(sAMAccountName=%(user)s)"
+  ],
+  [
+  "OU=Users,DC=emea,DC=corp,DC=com",
+  "SCOPE_SUBTREE",
+  "(sAMAccountName=%(user)s)"
+  ]
 ]
 ```
 
@@ -81,3 +115,36 @@ En este caso la organizacion en Ansible Tower es `Red Hat`
  }
 }
 ```
+
+### LDAP TEAM MAP
+
+```
+{
+ "Auditores": {
+  "users": "CN=AT_AUDITOR,CN=Users,DC=jmanuelcalvo,DC=com",
+  "remove": true,
+  "organization": "Red Hat"
+ },
+ "Usuarios Normales": {
+  "users": "CN=AT_NORMAL,CN=Users,DC=jmanuelcalvo,DC=com",
+  "remove": true,
+  "organization": "Red Hat"
+ },
+ "Administradores": {
+  "users": "CN=AT_ADMIN,CN=Users,DC=jmanuelcalvo,DC=com",
+  "remove": true,
+  "organization": "Red Hat"
+ }
+}
+```
+
+Una vez configurados los Teams, se puede empezar a permitir/denegar los accesos para los diferentes recursos dentro de Ansible Tower a los diferentes Teams
+
+![AD](images/ATldap6.png)
+
+De la siguiente forma:
+
+![AD](images/ATldap5.png)
+> ** Informacion adicional **
+>
+> https://docs.ansible.com/ansible-tower/latest/html/administration/ldap_auth.html
