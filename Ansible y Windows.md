@@ -321,10 +321,113 @@ changed: [192.168.0.15]
 PLAY RECAP *********************************************************************************************************************************************************************
 192.168.0.15               : ok=8    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
-    
-    
-    
-    
+
+6. Playbooks un poco mas avanzados que permiten la instalacion de productos
+
+Como este playbook va a escribir un archivo basado en una plantilla de Jinja, lo primero es crear este archivo:
+
+```
+[root@rhel7 ansible-win]# vim file.conf.j2
+Y este es un archivo Jinja que soporta varialbes 
+Ambiente {{ ambiente }}
+```
+Como se puede observar, esta plantilla espera una variable que se llama **{{ ambiente }}** la cual se puede pasar desde el playbook, desde un survey de Tower o desde la linea de comandos con la opcion **-e ambiente=**
+
+
+```
+[root@rhel7 ansible-win]# vim install_software.yml
+---
+- name: Instalacion de productos en Windows 10
+  hosts: win
+  gather_facts: no
+  vars:
+    iis_test_message: Hola
+    ambiente: Desarrollo
+  tasks:
+
+  - name: Crear la carpeta de configuracion
+    win_file:
+      path: C:\Temp\
+      state: directory
+
+  - name: Copiar los archivos de configuracion
+    win_copy:
+      content: "{{ iis_test_message }}"
+      dest: C:\Temp\index.html
+
+  - name: Crear un archivo desde plantilla jinja
+    win_template:
+      src: file.conf.j2
+      dest: C:\Temp\file.conf
+
+
+  - name: Mostrar la direccion del servidor
+    debug:
+      msg: "http://{{ ansible_host }}"
+
+  - name: Download the Apache installer
+    win_get_url:
+      url: https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi
+      dest: C:\Temp\httpd-2.2.25-win32-x86-no_ssl.msi
+
+  - name: Install MSI
+    win_package:
+      path: C:\Temp\httpd-2.2.25-win32-x86-no_ssl.msi
+      state: present
+
+#  - name: UnInstall MSI
+#    win_package:
+#      path: C:\ansible_examples\httpd-2.2.25-win32-x86-no_ssl.msi
+#      state: absent
+``` 
+   
+Ejecucion 
+
+```
+[root@rhel7 ansible-win]# ansible-playbook -i hosts  install_software.yml -e iis_test_message=Casa -e ambiente=produccion
+
+PLAY [Instalacion de productos en Windows 10] **********************************************************************************************************************************
+
+TASK [Crear la carpeta de configuracion] ***************************************************************************************************************************************
+ok: [192.168.0.15]
+
+TASK [Copiar los archivos de configuracion] ************************************************************************************************************************************
+changed: [192.168.0.15]
+
+TASK [Crear un archivo desde plantilla jinja] **********************************************************************************************************************************
+changed: [192.168.0.15]
+
+TASK [Mostrar la direccion del servidor] ***************************************************************************************************************************************
+ok: [192.168.0.15] => {
+    "msg": "http://192.168.0.15"
+}
+
+TASK [Download the Apache installer] *******************************************************************************************************************************************
+changed: [192.168.0.15]
+
+TASK [Install MSI] *************************************************************************************************************************************************************
+changed: [192.168.0.15]
+
+PLAY RECAP *********************************************************************************************************************************************************************
+192.168.0.15               : ok=6    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+```
+
+Y los resultados sobre la maquina Windows son:
+
+![Ref](images/winrm5.png)
+
+
+
+### NOTAS
+Un comando ejecutado desde PowerShell de Windows que puede ser util al momento de configuracion de WinRM es:
+```
+winrm get winrm/config
+```
+
+![Ref](images/winrm6.png)
+
+
 ### FUENTES:
 * https://geekflare.com/ansible-playbook-windows-example/
 
