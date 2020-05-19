@@ -13,3 +13,4 @@ Documentos con referenias de comandos que uso con frequencia
 - [OCPv3 Actualizacion de parametros de configuracion en los masters ](OCP-actualizacionParametros.md)
 - [Pruebas de estres sobre servidores RHEL](Pruebas%20de%20estres%20sobre%20servidores%20RHEL.md)
 - [Implementar un Web server en Cirros para pruebas](Web%20server%20en%20Cirros.md)
+- [Ejecucion de Playbooks en Windows](Ansible%20y%20Windows.md)
