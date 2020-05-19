@@ -1,0 +1,40 @@
+---
+- hosts: win
+  tasks:
+  - name: Get disk facts
+    win_disk_facts:
+
+  - name: Output first disk size
+    debug:
+      var: ansible_facts.disks[0].size
+
+  - name: Convert first system disk into various formats
+    debug:
+      msg: '{{ disksize_gib }} vs {{ disksize_gib_human }}'
+    vars:
+      # Get first system disk
+      disk: '{{ ansible_facts.disks|selectattr("system_disk")|first }}'
+
+      # Show disk size in Gibibytes
+      disksize_gib_human: '{{ disk.size|filesizeformat(true) }}'
+      disksize_gib: '{{ (disk.size/1024|pow(3))|round|int }} GiB'
+
+
+  - name: Get disk facts
+    win_command: wmic cpu get caption, deviceid, name, numberofcores, maxclockspeed, status
+    register: usage
+  - debug: msg={{ usage.stdout }}
+
+  - name: Get logs
+    win_psexec:
+      command: Get-EventLog -List
+      register: logs
+
+  - debug:
+      msg: logs.stdout
+
+  - name: run an executable using win_command
+    win_command: whoami.exe
+
+  - name: run a cmd command
+    win_command: cmd.exe /c mkdir C:\test
