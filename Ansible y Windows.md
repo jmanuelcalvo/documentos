@@ -118,7 +118,7 @@ Una vez en el CMD se ejecuta el comando **winrm qc** este comando no solo se enc
 Una vez habilitado podemos comprobar la informacion asi:
 
 ```
-C:\Windows\system32> winrm enumerate winrm/config/Listener
+C:\Windows\system32>winrm enumerate winrm/config/Listener
 Listener
     Address = *
     Transport = HTTP
@@ -127,7 +127,205 @@ Listener
     Enabled = true
     URLPrefix = wsman
     CertificateThumbprint
-    ListeningOn = 127.0.0.1, 169.254.119.190, 172.16.132.134, ::1, fe80::2080:9244:2762:77be%7, fe80::50c2:7fc8:4e3e:297e%5
+    ListeningOn = 127.0.0.1, 169.254.119.190, 192.168.0.15, ::1, 2800:484:6e80:eb80:50c2:7fc8:4e3e:297e, 2800:484:6e80:eb80:cdd4:fb48:d547:c489, fe80::2080:9244:2762:77be%7, fe80::50c2:7fc8:4e3e:297e%5
 
 ```
 
+2. Ya se encuentra habilitado el WinRM, la siguiente es la ejecucion de un script que comprueba la configuración actual de WinRM (PS Remoting) y hace los cambios necesarios para permitir que Ansible se conecte, autentique y ejecutar comandos de PowerShell.
+
+> **Advertencia**
+>
+> En caso de no ejecutar este powershell los playbooks pueden mostrar un mensaje como este:
+> 
+```
+[root@rhel7 ansible-win]# ansible win1 -i hosts -m win_ping
+192.168.0.15 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "ssl: HTTPSConnectionPool(host='192.168.0.15', port=5986): Max retries exceeded with url: /wsman (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7f462a9c82d0>, 'Connection to 192.168.0.15 timed out. (connect timeout=30)'))",
+    "unreachable": true
+}
+```
+
+El script de powershell se puede ubicar en esta ruta:
+https://github.com/ansible/ansible/blob/devel/examples/scripts/ConfigureRemotingForAnsible.ps1
+
+o buscando en google **configure remoting for ansible.ps1** 
+
+una vez guardado el archivo, se debe proceder a la ejecucion desde PowerShell (**ejecutado como administrador**)
+
+
+![Ref](images/winrm3.png)
+
+
+En la siguiente imagen podra observar que al momento de ejecutar el script de PowerShell se mostrara un error con un mensaje **about_Execution_Policies**, para este ejemplo se va a habilitar la ejecucion de politicas con el comando:
+
+```
+PS C:\Users\jmanuel\Documents> set-executionpolicy unrestricted
+```
+
+Finalmente desde la ruta donde se encuentra el Script de PowerShell, ejecutarlo
+
+```
+PS C:\Users\jmanuel\Documents> .\ConfigureRemotingForAnsible.ps1
+```
+![Ref](images/winrm4.png)
+
+
+3. La maquina con Windows se encuentra lista para la ejecucion de comandos desde Linux, ahora desde la maquina con Ansible tambien se debe realizar un alistamiento, en principio se debe garantizar que la maquina tenga instalado tanto el paquete de Ansible y un paquete llamado python-pip el cual proporcionara el comando **pip** que permitra la adicion de modulos de python
+
+```
+[root@rhel7 ansible-win]# yum install python-pip
+Loaded plugins: product-id, search-disabled-repos, subscription-manager
+Resolving Dependencies
+--> Running transaction check
+---> Package python2-pip.noarch 0:8.1.2-12.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================================================================================================================
+ Package                                      Arch                                    Version                                       Repository                             Size
+================================================================================================================================================================================
+Installing:
+ python2-pip                                  noarch                                  8.1.2-12.el7                                  epel                                  1.7 M
+
+Transaction Summary
+================================================================================================================================================================================
+Install  1 Package
+
+Total download size: 1.7 M
+Installed size: 7.2 M
+Is this ok [y/d/N]: y
+
+```
+
+
+Una vez con el comando pip, se instala el **pywinrm**
+
+```
+[root@rhel7 ansible-win]# pip install pywinrm
+Collecting pywinrm
+  Downloading https://files.pythonhosted.org/packages/fc/88/be0ea1af44c3bcc54e4c41e4056986743551693c77dfe50b48a3f4ba1bf7/pywinrm-0.4.1.tar.gz
+Collecting xmltodict (from pywinrm)
+...
+...
+Downloading https://files.pythonhosted.org/packages/1a/70/1935c770cb3be6e3a8b78ced23d7e0f3b187f5cbfab4749523ed65d7c9b1/requests-2.23.0-py2.py3-none-any.whl (58kB)
+    100% |████████████████████████████████| 61kB 598kB/s
+      Successfully uninstalled idna-2.4
+  Running setup.py install for pywinrm ... done
+Successfully installed certifi-2020.4.5.1 chardet-3.0.4 idna-2.9 ntlm-auth-1.4.0 pywinrm-0.4.1 requests-2.23.0 requests-ntlm-1.1.0 urllib3-1.25.9 xmltodict-0.12.0
+You are using pip version 8.1.2, however version 20.1 is available.
+```
+
+4. Estan listos los pre-requisitos para este ejercicio, ahora se debe crear un archivo de inventario con los datos de la maquina/s windows y este debe ser similar a este:
+```
+[root@rhel7 ~]# mkdir ansible-win/
+[root@rhel7 ~]# cd ansible-win/
+[root@rhel7 ansible-win]# vim hosts
+
+[win]
+192.168.0.15
+
+[win:vars]
+ansible_user=jmanuel
+ansible_password=XXXXXXX
+ansible_connection=winrm
+ansible_winrm_server_cert_validation=ignore
+```
+
+y tal como se hace con maquinas con sistema operativo Linux, el modulo **win_ping** permite validar la conectividad de Windows asi:
+
+```
+[root@rhel7 ansible-win]# ansible win -i hosts -m win_ping
+192.168.0.15 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+```
+
+5. Si la salida de ping es correcto, todo esta listo para empezar a ejecutar playbooks, aqui unos ejemplos de tareas de validacion de parametros de las maquinas, (informacion obtenida de https://geekflare.com/ansible-playbook-windows-example/)
+
+```
+[root@rhel7 ansible-win]# cat check.yml
+---
+- hosts: win
+  tasks:
+  - name: Get disk facts
+    win_disk_facts:
+
+  - name: Output first disk size
+    debug:
+      var: ansible_facts.disks[0].size
+
+  - name: Convert first system disk into various formats
+    debug:
+      msg: '{{ disksize_gib }} vs {{ disksize_gib_human }}'
+    vars:
+      # Get first system disk
+      disk: '{{ ansible_facts.disks|selectattr("system_disk")|first }}'
+
+      # Show disk size in Gibibytes
+      disksize_gib_human: '{{ disk.size|filesizeformat(true) }}'
+      disksize_gib: '{{ (disk.size/1024|pow(3))|round|int }} GiB'
+
+
+  - name: Get disk facts
+    win_command: wmic cpu get caption, deviceid, name, numberofcores, maxclockspeed, status
+    register: usage
+  - debug: msg={{ usage.stdout }}
+
+  - name: run an executable using win_command
+    win_command: whoami.exe
+
+  - name: run a cmd command
+    win_command: cmd.exe /c mkdir C:\test
+```    
+
+Ejecucion 
+
+```
+[root@rhel7 ansible-win]# ansible-playbook -i hosts check.yml
+
+PLAY [win] ********************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *********************************************************************************************************************************************************
+ok: [192.168.0.15]
+
+TASK [Get disk facts] **********************************************************************************************************************************************************
+ok: [192.168.0.15]
+
+TASK [Output first disk size] **************************************************************************************************************************************************
+ok: [192.168.0.15] => {
+    "ansible_facts.disks[0].size": "64424509440"
+}
+
+TASK [Convert first system disk into various formats] **************************************************************************************************************************
+ok: [192.168.0.15] => {
+    "msg": "60 GiB vs 60.0 GiB"
+}
+
+TASK [Get disk facts] **********************************************************************************************************************************************************
+changed: [192.168.0.15]
+
+TASK [debug] *******************************************************************************************************************************************************************
+ok: [192.168.0.15] => {
+    "msg": "Caption                               DeviceID  MaxClockSpeed  Name                                       NumberOfCores  Status  \r\r\nIntel64 Family 6 Model 94 Stepping 3  CPU0      2712           Intel(R) Core(TM) i7-6820HQ CPU @ 2.70GHz  2              OK      \r\r\n\r\r\n"
+}
+
+TASK [run an executable using win_command] *************************************************************************************************************************************
+changed: [192.168.0.15]
+
+TASK [run a cmd command] *******************************************************************************************************************************************************
+changed: [192.168.0.15]
+
+PLAY RECAP *********************************************************************************************************************************************************************
+192.168.0.15               : ok=8    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+```
+    
+    
+    
+    
+### FUENTES:
+* https://geekflare.com/ansible-playbook-windows-example/
+
+* https://github.com/ansible/workshops/tree/devel/exercises/ansible_windows/5-adv-playbook
