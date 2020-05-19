@@ -108,3 +108,26 @@ Ahora para empezar a relizar nuestras pruebas de ejecucion de comandos sobre Win
 1. La forma como Ansible ejecuta comandos en Windows es a traves de WinRM (Windows Remote Management) en cual ya se encuentra en las ultimas versiones de Windows, en algunos casos unicamente se debe habilitar, para ello se debe ejecutar en el interprete de comandos de windows (CMD) el comando **winrm qc**
 Esta tarea se debe realizar en el CMD de Windows como usuario administrador asi: Inicio -> buscar -> CMD -> Clic derecho (ejecutar como administrador)
 
+![Ref](images/winrm1.png)
+
+Una vez en el CMD se ejecuta el comando **winrm qc** este comando no solo se encarga de habilitar el winrm, si no que tambien crea la entrada en el firewall (si la red esta confurada como *Publica* el comando indicara que no puede habilitar el firewall (por que no puede permitir lo que ya esta permitido)
+
+![Ref](images/winrm2.png)
+
+
+Una vez habilitado podemos comprobar la informacion asi:
+
+```
+C:\Windows\system32> winrm enumerate winrm/config/Listener
+Listener
+    Address = *
+    Transport = HTTP
+    Port = 5985
+    Hostname
+    Enabled = true
+    URLPrefix = wsman
+    CertificateThumbprint
+    ListeningOn = 127.0.0.1, 169.254.119.190, 172.16.132.134, ::1, fe80::2080:9244:2762:77be%7, fe80::50c2:7fc8:4e3e:297e%5
+
+```
+
