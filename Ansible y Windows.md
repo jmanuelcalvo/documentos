@@ -432,3 +432,5 @@ winrm get winrm/config
 * https://geekflare.com/ansible-playbook-windows-example/
 
 * https://github.com/ansible/workshops/tree/devel/exercises/ansible_windows/5-adv-playbook
+
+* https://www.ansible.com/blog/connecting-to-a-windows-host
