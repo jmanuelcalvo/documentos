@@ -1,8 +1,8 @@
-# Ejecucion de un playbook en Windows
+# Ejecución de un playbook en Windows
 
-Tal como en Linux, existen una serie de modulos de ansible para Windows y funcionan de forma simila a lo que quizas ya has aprendido en el pasado
+Tal como en Linux, existen una serie de módulos de ansible para Windows y funcionan de forma similar a lo que quizás ya has aprendido en el pasado
 
-Este es el listado de modulos que se muestra en la documentacion:
+Este es el listado de módulos que se muestra en la documentación
 
 ```
 [root@rhel7 ansible-win]# ansible-doc  -l | grep win_
@@ -101,21 +101,21 @@ win_xml                                              Add XML fragment to an XML 
 
 >**Tip**
 >
-> Recuerda que para usar cualquiera de estos modulos, puedes obtener un ejemplo ejecutando el comando **ansible-doc <modulo>, ejemplo ansible-doc win_copy** y al final de esta documentacion se encontrara un ejemplo practico para tu playbook
+> Recuerda que para usar cualquiera de estos módulos, puedes obtener un ejemplo ejecutando el comando **ansible-doc <modulo>, ejemplo ansible-doc win_copy** y al final de esta documentación se encontrara un ejemplo practico para tu playbook
 
-Ahora para empezar a relizar nuestras pruebas de ejecucion de comandos sobre Windows de forma rapida y basica se deben realizar los siguientes pasos:
+Ahora para empezar a realizar nuestras pruebas de ejecución de comandos sobre Windows de forma rápida y básica se deben realizar los siguientes pasos:
 
-1. La forma como Ansible ejecuta comandos en Windows es a traves de WinRM (Windows Remote Management) en cual ya se encuentra en las ultimas versiones de Windows, en algunos casos unicamente se debe habilitar, para ello se debe ejecutar en el interprete de comandos de windows (CMD) el comando **winrm qc**
-Esta tarea se debe realizar en el CMD de Windows como usuario administrador asi: Inicio -> buscar -> CMD -> Clic derecho (ejecutar como administrador)
+1. La forma como Ansible ejecuta comandos en Windows es a través de WinRM (Windows Remote Management) en cual ya se encuentra en las ultimas versiones de Windows, en algunos casos unicamente se debe habilitar, para ello se debe ejecutar en el interprete de comandos de windows (CMD) el comando **winrm qc**
+Esta tarea se debe realizar en el CMD de Windows como usuario administrador así: Inicio -> buscar -> CMD -> Clic derecho (ejecutar como administrador)
 
 ![Ref](images/winrm1.png)
 
-Una vez en el CMD se ejecuta el comando **winrm qc** este comando no solo se encarga de habilitar el winrm, si no que tambien crea la entrada en el firewall (si la red esta confurada como *Publica* el comando indicara que no puede habilitar el firewall (por que no puede permitir lo que ya esta permitido)
+Una vez en el CMD se ejecuta el comando **winrm qc** este comando no solo se encarga de habilitar el winrm, si no que también crea la entrada en el firewall (si la red esta configurada como *Publica* el comando indicara que no puede habilitar el firewall (por que no puede permitir lo que ya esta permitido)
 
 ![Ref](images/winrm2.png)
 
 
-Una vez habilitado podemos comprobar la informacion asi:
+Una vez habilitado podemos comprobar la información así:
 
 ```
 C:\Windows\system32>winrm enumerate winrm/config/Listener
@@ -131,7 +131,7 @@ Listener
 
 ```
 
-2. Ya se encuentra habilitado el WinRM, la siguiente es la ejecucion de un script que comprueba la configuración actual de WinRM (PS Remoting) y hace los cambios necesarios para permitir que Ansible se conecte, autentique y ejecutar comandos de PowerShell.
+2. Ya se encuentra habilitado el WinRM, la siguiente es la ejecución de un script que comprueba la configuración actual de WinRM (PS Remoting) y hace los cambios necesarios para permitir que Ansible se conecte, autentique y ejecutar comandos de PowerShell.
 
 > **Advertencia**
 >
@@ -151,13 +151,13 @@ https://github.com/ansible/ansible/blob/devel/examples/scripts/ConfigureRemoting
 
 o buscando en google **configure remoting for ansible.ps1** 
 
-una vez guardado el archivo, se debe proceder a la ejecucion desde PowerShell (**ejecutado como administrador**)
+una vez guardado el archivo, se debe proceder a la ejecución desde PowerShell (**ejecutado como administrador**)
 
 
 ![Ref](images/winrm3.png)
 
 
-En la siguiente imagen podra observar que al momento de ejecutar el script de PowerShell se mostrara un error con un mensaje **about_Execution_Policies**, para este ejemplo se va a habilitar la ejecucion de politicas con el comando:
+En la siguiente imagen podra observar que al momento de ejecutar el script de PowerShell se mostrara un error con un mensaje **about_Execution_Policies**, para este ejemplo se va a habilitar la ejecución de políticas con el comando:
 
 ```
 PS C:\Users\jmanuel\Documents> set-executionpolicy unrestricted
@@ -171,7 +171,7 @@ PS C:\Users\jmanuel\Documents> .\ConfigureRemotingForAnsible.ps1
 ![Ref](images/winrm4.png)
 
 
-3. La maquina con Windows se encuentra lista para la ejecucion de comandos desde Linux, ahora desde la maquina con Ansible tambien se debe realizar un alistamiento, en principio se debe garantizar que la maquina tenga instalado tanto el paquete de Ansible y un paquete llamado python-pip el cual proporcionara el comando **pip** que permitra la adicion de modulos de python
+3. La maquina con Windows se encuentra lista para la ejecución de comandos desde Linux, ahora desde la maquina con Ansible también se debe realizar un alistamiento, en principio se debe garantizar que la maquina tenga instalado tanto el paquete de Ansible y un paquete llamado python-pip el cual proporcionara el comando **pip** que permita la adición de módulos de python
 
 ```
 [root@rhel7 ansible-win]# yum install python-pip
@@ -217,7 +217,7 @@ Successfully installed certifi-2020.4.5.1 chardet-3.0.4 idna-2.9 ntlm-auth-1.4.0
 You are using pip version 8.1.2, however version 20.1 is available.
 ```
 
-4. Estan listos los pre-requisitos para este ejercicio, ahora se debe crear un archivo de inventario con los datos de la maquina/s windows y este debe ser similar a este:
+4. Están listos los pre-requisitos para este ejercicio, ahora se debe crear un archivo de inventario con los datos de la maquina/s windows y este debe ser similar a este:
 ```
 [root@rhel7 ~]# mkdir ansible-win/
 [root@rhel7 ~]# cd ansible-win/
@@ -233,7 +233,7 @@ ansible_connection=winrm
 ansible_winrm_server_cert_validation=ignore
 ```
 
-y tal como se hace con maquinas con sistema operativo Linux, el modulo **win_ping** permite validar la conectividad de Windows asi:
+y tal como se hace con maquinas con sistema operativo Linux, el modulo **win_ping** permite validar la conectividad de Windows así:
 
 ```
 [root@rhel7 ansible-win]# ansible win -i hosts -m win_ping
@@ -243,7 +243,7 @@ y tal como se hace con maquinas con sistema operativo Linux, el modulo **win_pin
 }
 ```
 
-5. Si la salida de ping es correcto, todo esta listo para empezar a ejecutar playbooks, aqui unos ejemplos de tareas de validacion de parametros de las maquinas, (informacion obtenida de https://geekflare.com/ansible-playbook-windows-example/)
+5. Si la salida de ping es correcto, todo esta listo para empezar a ejecutar playbooks, aqui unos ejemplos de tareas de validación de parámetros de las maquinas, (información obtenida de https://geekflare.com/ansible-playbook-windows-example/)
 
 ```
 [root@rhel7 ansible-win]# cat check.yml
@@ -281,7 +281,7 @@ y tal como se hace con maquinas con sistema operativo Linux, el modulo **win_pin
     win_command: cmd.exe /c mkdir C:\test
 ```    
 
-Ejecucion 
+Ejecución 
 
 ```
 [root@rhel7 ansible-win]# ansible-playbook -i hosts check.yml
@@ -322,22 +322,22 @@ PLAY RECAP *********************************************************************
 192.168.0.15               : ok=8    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-6. Playbooks un poco mas avanzados que permiten la instalacion de productos
+6. Playbooks un poco mas avanzados que permiten la instalación de productos
 
 Como este playbook va a escribir un archivo basado en una plantilla de Jinja, lo primero es crear este archivo:
 
 ```
 [root@rhel7 ansible-win]# vim file.conf.j2
-Y este es un archivo Jinja que soporta varialbes 
+Y este es un archivo Jinja que soporta variables 
 Ambiente {{ ambiente }}
 ```
-Como se puede observar, esta plantilla espera una variable que se llama **{{ ambiente }}** la cual se puede pasar desde el playbook, desde un survey de Tower o desde la linea de comandos con la opcion **-e ambiente=**
+Como se puede observar, esta plantilla espera una variable que se llama **{{ ambiente }}** la cual se puede pasar desde el playbook, desde un survey de Tower o desde la linea de comandos con la opción **-e ambiente=**
 
 
 ```
 [root@rhel7 ansible-win]# vim install_software.yml
 ---
-- name: Instalacion de productos en Windows 10
+- name: Instalación de productos en Windows 10
   hosts: win
   gather_facts: no
   vars:
@@ -420,7 +420,7 @@ Y los resultados sobre la maquina Windows son:
 
 
 ### NOTAS
-Un comando ejecutado desde PowerShell de Windows que puede ser util al momento de configuracion de WinRM es:
+Un comando ejecutado desde PowerShell de Windows que puede ser útil al momento de configuracion de WinRM es:
 ```
 winrm get winrm/config
 ```
