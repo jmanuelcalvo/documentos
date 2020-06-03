@@ -427,6 +427,18 @@ winrm get winrm/config
 
 ![Ref](images/winrm6.png)
 
+### NOTAS
+En caso que tenga una maquina con Red Hat y no con CentOS, la instalacion del comando pip es diferente:
+
+El comando pip se puede encontrar en cualquiera de los paquetes/repos
+https://access.redhat.com/solutions/1519803
+
+Una vez instalado, ejecutar:
+```
+$ scl enable python27 bash
+$ which pip
+$ pip -V
+```
 
 ### FUENTES:
 * https://geekflare.com/ansible-playbook-windows-example/
