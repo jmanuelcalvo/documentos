@@ -1,10 +1,10 @@
-# Integracion de playbooks en Ansible tower con Red Hat CloudFoms
+# Integración de playbooks en Ansible tower con Red Hat CloudFoms
 
-Una vez integrados el proveedor Ansible Tower en CloudForms se pueden crear catalogos (un portal con un market place) que se encarguen de hacer el llamado a playbooks y ademas pasarle parametros desde formularios de Cloudforms.
+Una vez integrados el proveedor Ansible Tower en CloudForms se pueden crear catálogos (un portal con un market place) que se encarguen de hacer el llamado a playbooks y ademas pasarle parámetros desde formularios de Cloudforms.
 
-Para esto, es necesario primero realizar la configuracion del Ansible Tower con por lo menos Un proyecto/playbook/Plantilla
+Para esto, es necesario primero realizar la configuración del Ansible Tower con por lo menos Un proyecto/playbook/Plantilla
 
-## Pasos de configuracion de Ansible Tower
+## Pasos de configuración de Ansible Tower
 
 ### 1. Crear proyecto Ansible Tower
 Resources -> Projects -> +
@@ -17,12 +17,12 @@ En caso de no tener repositorio git para el Ansible Tower, crear una carpeta loc
 [root@tower36 ~]# chown awx:awx /var/lib/awx/projects/cloudforms/
 ```
 
-Una vez creada la carpeta, ya se debe visualizar a traves de la interface de tower, ahi se debe seleccionar el SCM TYPE: Manual    La subcarpeta local del hosts de ansible tower y la carpeta creada en el paso anterior
+Una vez creada la carpeta, ya se debe visualizar a través de la interface de tower, ahi se debe seleccionar el SCM TYPE: Manual    La subcarpeta local del hosts de ansible tower y la carpeta creada en el paso anterior
 ![Ref](images/tower8.png)
 
 
-### 2. Crear un playbook en Ansible, que soporte la inyeccion de variables
-Las variables que se ponen en este playbook basico, posteriormente seran enviadas a traves de un catalogo de CloudForms
+### 2. Crear un playbook en Ansible, que soporte la inyección de variables
+Las variables que se ponen en este playbook básico, posteriormente serán enviadas a través de un catalogo de CloudForms
 
 ```
 [root@tower36 ~]# cat <<EOF > /var/lib/awx/projects/cloudforms/archivo.yaml
@@ -48,7 +48,7 @@ Resources -> Inventories -> + -> Inventory
 
 ![Ref](images/tower1.png)
 
-Rellenar los datos con la descripcion del Hosts y click en SAVE
+Rellenar los datos con la descripción del Hosts y click en SAVE
 
 ![Ref](images/tower2.png)
 
@@ -66,7 +66,7 @@ Resources -> Credentials -> + -> Inventory
 
 ![Ref](images/tower5.png)
 
-En el tipo de credential, seleccionar Machine cuando se trata de una maquina con Linux, en cuanto al usuario y contraseña, se puede seleccionar conexion directa con el usuario root, o en las mejores practicas un usuario que tenga privilegios de SUDO
+En el tipo de credential, seleccionar Machine cuando se trata de una maquina con Linux, en cuanto al usuario y contraseña, se puede seleccionar conexión directa con el usuario root, o en las mejores practicas un usuario que tenga privilegios de SUDO
 
 ![Ref](images/tower6.png)
 
@@ -80,7 +80,7 @@ Ahora se deben rellenar los campos realizados en los pasos anteriores, inventari
 
 ![Ref](images/tower10.png)
 
-Como la idea es que el playbook reciba parametros, en este caso se debe adicionar sobre la pestaña SURVEY los siguiente
+Como la idea es que el playbook reciba parámetros, en este caso se debe adicionar sobre la pestaña SURVEY los siguiente
 
 ![Ref](images/tower11.png)
 
@@ -125,7 +125,7 @@ datos personalizados
 ## Pasos de configuracion de CloudForms
 
 ### 1. Crear el formulario (Dialog)
-Desde la interface web de administrador de Cloudforms, lo primero que se debe es generar el formulario que recibira el servicion, para ello se debe ir a Services -> Automate -> Customization
+Desde la interface web de administrador de Cloudforms, lo primero que se debe es generar el formulario que recibirá el servicio, para ello se debe ir a Services -> Automate -> Customization
 
 ![Ref](images/cf1.png)
 
@@ -137,11 +137,11 @@ Configuration -> Add a new Dialog
 
 ![Ref](images/cf3.png)
 
-Se deben llegar los datos del formulario, tenga en cuenta que en paso 2, a mano derecha esta los posibles campos que se le pueden adicionar al formulario, botones, areas de texto, tags, entre otros, esos iconos se pueden arrastrar para realizar el diseño del formulario, una vez arrastrados, en el punto 3 se puede editar dicha casilla
+Se deben llegar los datos del formulario, tenga en cuenta que en paso 2, a mano derecha esta los posibles campos que se le pueden adicionar al formulario, botones, áreas de texto, tags, entre otros, esos iconos se pueden arrastrar para realizar el diseño del formulario, una vez arrastrados, en el punto 3 se puede editar dicha casilla
 
 ![Ref](images/cf4.png)
 
-Y es justo aqui donde viene la magia de la integracion, ya que si en el playbook la variable que se le puede insertar se llama line1, entonces el campo del formulario del playbook este se debe llamar param_line1 asi:
+Y es justo aquí donde viene la magia de la integración, ya que si en el playbook la variable que se le puede insertar se llama line1, entonces el campo del formulario del playbook este se debe llamar param_line1 asi:
 
 Referencia: https://access.redhat.com/solutions/3887651
 
@@ -165,13 +165,13 @@ Seleccionar Catalog Item Type -> Ansible Tower
 
 ![Ref](images/cf9.png)
 
-y llenar los datos que CF obtiene del proveedor de automatizacion Ansible Tower ( si esta bien configurado el proveedor se pueden visualizar el template previamente creado
+y llenar los datos que CF obtiene del proveedor de automatización Ansible Tower ( si esta bien configurado el proveedor se pueden visualizar el template previamente creado
 
 ![Ref](images/cf10.png)
 
 ### 3. Ordenar a traves del servicio la creacion de los recursos
 
-Es hora de realizar la prueba, en el menu -> Service -> Catalogs -> Service Catalogs -> Crear archivo con parametros -> Order
+Es hora de realizar la prueba, en el menu -> Service -> Catalogs -> Service Catalogs -> Crear archivo con parámetros -> Order
 
 ![Ref](images/cf11.png)
 
@@ -183,7 +183,7 @@ Para validar que el requerimiento se este ejecutando, se puede ingresar a Servic
 
 ![Ref](images/cf13.png)
 
-Si el requerimiento se encuentra en estado finish, los sigueinte es entrar a la maquina fisica a realizar la respectiva validacion
+Si el requerimiento se encuentra en estado finish, los siguiente es entrar a la maquina física a realizar la respectiva validación
 
 ![Ref](images/cf14.png)
 

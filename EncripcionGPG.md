@@ -1,4 +1,4 @@
-Una forma segura de transferir documentos a traves de correo electronico, chats, usb o cualquier dispositivo que pueda tener un intermediario en el medio es usando GPG
+Una forma segura de transferir documentos a través de correo electrónico, chats, usb o cualquier dispositivo que pueda tener un intermediario en el medio es usando GPG
 
 Que funciona en forma general de la siguiente forma
 
@@ -42,9 +42,9 @@ You need a Passphrase to protect your secret key.
 
 > NOTA
 >
-> En este punto es importante que si estamos conectados a la maquina a traves de ssh, este proceso necesita el X11Forward, por lo que el ssh se debe hacer con el parametro -X, ejemplo
+> En este punto es importante que si estamos conectados a la maquina a través de ssh, este proceso necesita el X11Forward, por lo que el ssh se debe hacer con el parámetro -X, ejemplo
 >
->`[root@clienteA jmanuel$ ssh 10.96.97.162 -l root -X` y por otro lado, es requerido tambien que la maquina tenga instalado el paquete pinentry
+>`[root@clienteA jmanuel$ ssh 10.96.97.162 -l root -X` y por otro lado, es requerido también que la maquina tenga instalado el paquete pinentry
 
 ```bash
       ┌─────────────────────────────────────────────────────┐
@@ -68,7 +68,7 @@ gpg: key B447D35A marked as ultimately trusted
 public and secret key created and signed.
 ```
 
-Durante este proceso de entropy el S.O esta intentando generar numeros aleatorios para la generacion de la clave, es por esto que se recomienda que mientras se esta generando la clave, en otra terminal intentemos escribir en disco o generar algun tipo de trabajo para que estos numeros sean lo mas aleatorios posibles.
+Durante este proceso de entropy el S.O esta intentando generar números aleatorios para la generación de la clave, es por esto que se recomienda que mientras se esta generando la clave, en otra terminal intentemos escribir en disco o generar algún tipo de trabajo para que estos números sean lo mas aleatorios posibles.
 ```bash
 gpg: checking the trustdb
 gpg: 3 marginal(s) needed, 1 complete(s) needed, PGP trust model
@@ -82,13 +82,13 @@ Por ultimo la Clave del usuarioA es generada y se almacenan sobre la carpeta ~/.
 
 >IMPORTANTE
 >
->Se debe hacer una copia de seguirdad de esta carpeta ya que aqui se contiene la clave privada (la cual no se debe compartir con NADIE)
+>Se debe hacer una copia de seguridad de esta carpeta ya que aquí se contiene la clave privada (la cual no se debe compartir con NADIE)
 
 ```bash
 [root@clienteA ~]# ls ~/.gnupg/
 gpg.conf  private-keys-v1.d  pubring.gpg  pubring.gpg~  random_seed  secring.gpg  S.gpg-agent  trustdb.gpg
 ```
-Una vez el usuario tenga su par de llaves importadas, ahora puede compartir su llave publica para que quien la tenga, pueda firmar los documentos, una vez firmados/encriptados dichos documentos la UNICA forma de desencriptarlos es con la llave privada
+Una vez el usuario tenga su par de llaves importadas, ahora puede compartir su llave publica para que quien la tenga, pueda firmar los documentos, una vez firmados/encriptados dichos documentos la ÚNICA forma de desencriptarlos es con la llave privada
 
 Para compartir la llave publica el clienteA puede ejecutar estos comandos:
 
@@ -101,7 +101,7 @@ pub   2048R/B447D35A 2020-07-28
 uid                  Jose Manuel Calvo (Llave para envio y recepcion de documentos) <jcalvo@redhat.com>
 sub   2048R/2718F60F 2020-07-28
 ```
-2. Con dicha informacion exportar la llave privada a un archivo .key el cual debemos entregarle al clienteB para que firme los documentos
+2. Con dicha información exportar la llave privada a un archivo .key el cual debemos entregarle al clienteB para que firme los documentos
 ```bash
 [root@clienteA ~]# gpg --output ~/jcalvo.key --armor --export B447D35A
 [root@clienteA ~]# file jcalvo.key

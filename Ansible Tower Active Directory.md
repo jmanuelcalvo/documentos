@@ -1,6 +1,6 @@
-# Configuracion de Ansible Tower contra Active Directory
+# Configuración de Ansible Tower contra Active Directory
 
-Para este ejercicio se realiza la configuracion de un Directorio Activo que contiene usuarios y grupos sobre la carpeta Users y se crean 3 grupos 
+Para este ejercicio se realiza la configuración de un Directorio Activo que contiene usuarios y grupos sobre la carpeta Users y se crean 3 grupos 
   - AT_ADMIN
   - AT_AUDITOR
   - AT_NORMAL
@@ -24,13 +24,13 @@ Desde una de las maquinas de Ansible Tower se valida la conectividad con el sigu
 >
 > Si no cuenta con el cliente ldapsearch instale el paquete openldap-clientes
 
-Una vez se garantice la conectividad se procede a realizar la configuracion en Ansible Tower
+Una vez se garantice la conectividad se procede a realizar la configuración en Ansible Tower
 
-## Parametros de Configuracion de Ansible Tower con Active Directory
+## Parámetros de Configuración de Ansible Tower con Active Directory
 
 ![Ansible Tower](images/ATldap1.png)
 
-Los siguientes parametros van a definir el comportamiento de la autenticacion
+Los siguientes parámetros van a definir el comportamiento de la autenticación
 
 ### LDAP USER SEARCH
 ```bash
@@ -99,7 +99,7 @@ Define el grupo de los usuarios que seran administradores en Ansible Tower
 ```
 
 ### LDAP ORGANIZATION MAP
-En este caso la organizacion en Ansible Tower es `Red Hat`
+En este caso la organización en Ansible Tower es `Red Hat`
 
 ![AD](images/ATldap3.png)
 
@@ -145,6 +145,6 @@ Una vez configurados los Teams, se puede empezar a permitir/denegar los accesos 
 De la siguiente forma:
 
 ![AD](images/ATldap5.png)
-> ** Informacion adicional **
+> ** Información adicional **
 >
 > https://docs.ansible.com/ansible-tower/latest/html/administration/ldap_auth.html

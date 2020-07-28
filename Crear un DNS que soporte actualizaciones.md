@@ -1,6 +1,6 @@
 # Crear un DNS que soporte actualizaciones
 
-Para un proyecro en el que me encontraba trabajando, requeria que un playbook dentro de sus multiples tareas, tambien pudiese lanzar la creacion de un registro en el DNS.
+Para un proyecto en el que me encontraba trabajando, requería que un playbook dentro de sus múltiples tareas, también pudiese lanzar la creación de un registro en el DNS.
 
 El primer reto para esto fue montar un ambiente de pruebas que me permitiera primero realizar la tarea manual, es por esto voy a compartir el procedimiento de montar un servidor bind que permite actualizaciones
 
@@ -12,7 +12,7 @@ Este laboratorio lo realice sobre una maquina con RHEL 7.6
 [root@server02 ~]# yum -y install bind bind-utils
 ```
 
-2. Crear una llave de DNS con la que posteriormente se realizara la actualizacion
+2. Crear una llave de DNS con la que posteriormente se realizara la actualización
 ```
 [root@server02 ~]# cd /tmp/
 [root@server02 tmp]# dnssec-keygen -a HMAC-SHA512 -b 512 -n USER mrslave.jmanuelcalvo.com.
@@ -49,7 +49,7 @@ key mrslave.jmanuelcalvo.com. {
 [root@server02 tmp]# chown  named /etc/bind-keys.conf
 ```
 
-5. Realizar la configuracion del bind, para ello lo que generalmente hago es que saco una copia del archivo original y copio desde 0 un archivo con el siguiente contenido.
+5. Realizar la configuración del bind, para ello lo que generalmente hago es que saco una copia del archivo original y copio desde 0 un archivo con el siguiente contenido.
 ```
 [root@server02 tmp]# cd /etc
 [root@server02 etc]# mv  named.conf named.conf.default
@@ -92,7 +92,7 @@ include "/etc/bind-keys.conf";
 ```
 
 
-6. Luego se deben crear las zonas, para lo que tambien copio el archivo desde 0
+6. Luego se deben crear las zonas, para lo que también copio el archivo desde 0
 ```
 [root@server02 etc]# vi /var/named/db.jmanuelcalvo.com.zone
 $TTL 86400      ; 1 day
@@ -168,7 +168,7 @@ Address: 172.16.132.245
 245.132.16.172.in-addr.arpa	name = server02.jmanuelcalvo.com.
 ```
 
-3. Crear un archivo con la sintaxis de actualizacion de DNS con un contenido similar al siguiente
+3. Crear un archivo con la sintaxis de actualización de DNS con un contenido similar al siguiente
 ```
 [root@server02 ~]# more nsupdate.txt
 server server02.jmanuelcalvo.com
@@ -179,7 +179,7 @@ show
 send
 ```
 
-4. Realizar la prueba de creacion a traves del comando nsupdate
+4. Realizar la prueba de creación a través del comando nsupdate
 ```
 [root@server02 ~]# nsupdate -k /etc/bind-keys.conf -v nsupdate.txt
 Outgoing update query:
@@ -200,7 +200,7 @@ Name:	ext.jmanuelcalvo.com
 Address: 192.168.1.2
 ```
 
-5. En caso de funcionar de forma correcta el comando, el resultado deberia ser el nuevo registro en el DNS
+5. En caso de funcionar de forma correcta el comando, el resultado debería ser el nuevo registro en el DNS
 ```
 [root@server02 ~]# nslookup ext.jmanuelcalvo.com.
 Server:		127.0.0.1
@@ -212,7 +212,7 @@ Address: 192.168.1.2
 
 
 ## NOTAS: 
-En caso de querer ser un poco mas restrictivo con la creacion de registros, en el archivo named.conf en la configuracion de la zona se pueden realizar configuraciones de este tipo:
+En caso de querer ser un poco mas restrictivo con la creación de registros, en el archivo named.conf en la configuración de la zona se pueden realizar configuraciones de este tipo:
 
 
 

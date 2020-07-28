@@ -1,4 +1,4 @@
-Crear un archivo llamado webserver.sh con el siguiente contendo:
+Crear un archivo llamado webserver.sh con el siguiente contenido:
 
 ```
 #!/bin/sh

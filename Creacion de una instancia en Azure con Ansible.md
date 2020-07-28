@@ -1,6 +1,6 @@
-# Pasos para la creacion de una instancia en Azure desde una maquina RHEL7 / CentOS
+# Pasos para la creación de una instancia en Azure desde una maquina RHEL7 / CentOS
 
-## Habilitar los repositorios necesarios para instalar los modulos de PIP 
+## Habilitar los repositorios necesarios para instalar los módulos de PIP 
 ```
 [root@localhost ~]# subscription-manager repos --enable rhel-server-rhscl-7-rpms
 ``` 
@@ -11,12 +11,12 @@
 ``` 
 
 ## Ingresar al ambiente de scl - Setup and run software from Software Collection environment
-Esto permite que al momento de ejecutar el comando "scl enable python27 bash" se cree un ambiente llamado python27 donde se puedan instalar diferentes modulos de python solo para este ambiente
+Esto permite que al momento de ejecutar el comando "scl enable python27 bash" se cree un ambiente llamado python27 donde se puedan instalar diferentes módulos de python solo para este ambiente
 
 ```
 [root@localhost ~]# scl enable python27 bash
 ```
-## Instalar los modulos pip (Python Package Index) relacionados con Azure
+## Instalar los módulos pip (Python Package Index) relacionados con Azure
 ```
 [root@localhost ~]# pip install ansible[azure]
 Collecting ansible[azure]
@@ -24,7 +24,7 @@ Collecting ansible[azure]
 ...
 ```
 
-## Garantizar que todos esten todos los modulos para para Azure
+## Garantizar que todos estén todos los módulos para para Azure
 ```
 [root@localhost ~]# vim requirements-azure.txt
 packaging
@@ -70,7 +70,7 @@ azure-mgmt-iothub==0.7.0
 
 ## Loguearse en Azure se tienen 3 Opciones:
 
-### 1. Setear las sigiuentes variables de ambiente:
+### 1. Ajustar las siguientes variables de ambiente:
 ```
 AZURE_CLIENT_ID=<service_principal_client_id>
 AZURE_SECRET=<service_principal_password>
@@ -88,7 +88,7 @@ tenant=xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 
 
-### 3. ejecutar el comando az login y este re-dirigira a la un navegador web para realizar el logueo
+### 3. ejecutar el comando az login y este re-dirigirá a la un navegador web para realizar el logueo
 ```
 az login
 ```

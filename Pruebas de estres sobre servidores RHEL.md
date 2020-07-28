@@ -1,4 +1,4 @@
-### Realizar pruebas de estres sobre servidores CentOS / RHEL
+### Realizar pruebas de estrés sobre servidores CentOS / RHEL
 
 # Instalar los repos necesarios
 
@@ -11,7 +11,7 @@ RHEL
 yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 ```
 
-# Intalar las herramienta stress
+# Instalar las herramienta stress
 ```
 yum install stress -y
 ```
@@ -62,7 +62,7 @@ stress: info: [693] dispatching hogs: 0 cpu, 0 io, 4 vm, 0 hdd
 
 
 # Monitoreo
-Mienstra se realiza las pruebas se pueden utilizar comandos como:
+Mientra se realiza las pruebas se pueden utilizar comandos como:
 ```
 - vmstat
 - top

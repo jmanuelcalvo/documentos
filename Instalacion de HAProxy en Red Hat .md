@@ -1,11 +1,11 @@
-# Instalacion de HAProxy en Red Hat / CentOS con Statics
+# Instalación de HAProxy en Red Hat / CentOS con Statics
 
 Instalacion del paquete HAProxy
 ```
 [root@jmanuel ~]# yum install haproxy
 ```
 
-En la configuracion mas basica, para realizar el balanceo de un servicio HTTP y HTTPS y habiliar las estadisticas el archivo de configuracion puede quedar asi:
+En la configuración mas básica, para realizar el balanceo de un servicio HTTP y HTTPS y habilitar las estadísticas el archivo de configuración puede quedar asi:
 ```
 [root@jmanuel ~]# vim /etc/haproxy/haproxy.cfg
 global
@@ -75,14 +75,14 @@ De donde la IPs:
 172.16.132.232
 ```
 
-Algunos de los parametros mas comunes a tener en cuenta son:
+Algunos de los parámetros mas comunes a tener en cuenta son:
 ```
 nbproc <value> # Número de cores de procesamiento en su maquina.
 mode <value> # ‘http’ para sitios http y ‘tcp’ para sitios con https
 balance <value> # Tipos de balanceo como ‘source’, ’roundrobin’ etc.
 ```
 
-Habilitar el puerto 1936 en SELinux para visualizar las estadisticas
+Habilitar el puerto 1936 en SELinux para visualizar las estadísticas
 ```
 [root@jmanuel ~]# semanage port -a -t http_port_t -p tcp 1936
 ```
@@ -102,16 +102,16 @@ La direccion IPv4 del servidor es 172.16.132.234
 La direccion IPv4 del servidor es 172.16.132.232
 ```
 
-Visualizar las estadisticas
+Visualizar las estadísticas
 http://172.16.132.234:1936/haproxy?stats
 usuario: admin
 password: password
-Seteados en el archivo de configuracion principal
+Seteados en el archivo de configuración principal
 
 ![Statics](images/statics.png)
 
 
-A traves de la herraminta ab (apache benckmark) la cual se encuentra en el paquete RPM (httpd-tools) podemos realizar pruebas de conexion al servidor para generar trafico
+A través de la herramienta ab (apache benckmark) la cual se encuentra en el paquete RPM (httpd-tools) podemos realizar pruebas de conexión al servidor para generar trafico
 ```
 [root@jmanuel ~]# ab -n 100 -c 10 http://172.16.132.234/
 ```
