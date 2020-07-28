@@ -4,7 +4,7 @@ Que funciona en forma general de la siguiente forma
 
 El usuarioA crea una llave publica y privada a partir del comando:
 ```bash
-[root@undercloud ~]# gpg --gen-key
+[root@clienteA ~]# gpg --gen-key
 gpg (GnuPG) 2.0.22; Copyright (C) 2013 Free Software Foundation, Inc.
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
@@ -85,7 +85,7 @@ Por ultimo la Clave del usuarioA es generada y se almacenan sobre la carpeta ~/.
 >Se debe hacer una copia de seguirdad de esta carpeta ya que aqui se contiene la clave privada (la cual no se debe compartir con NADIE)
 
 ```bash
-[root@undercloud ~]# ls ~/.gnupg/
+[root@clienteA ~]# ls ~/.gnupg/
 gpg.conf  private-keys-v1.d  pubring.gpg  pubring.gpg~  random_seed  secring.gpg  S.gpg-agent  trustdb.gpg
 ```
 Una vez el usuario tenga su par de llaves importadas, ahora puede compartir su llave publica para que quien la tenga, pueda firmar los documentos, una vez firmados/encriptados dichos documentos la UNICA forma de desencriptarlos es con la llave privada
@@ -94,7 +94,7 @@ Para compartir la llave publica el clienteA puede ejecutar estos comandos:
 
 1. Listar las llaves y obtener los datos como el Fingerprint o el correo 
 ```bash
-[root@undercloud ~]# gpg --list-keys
+[root@clienteA ~]# gpg --list-keys
 /root/.gnupg/pubring.gpg
 ------------------------
 pub   2048R/B447D35A 2020-07-28
@@ -103,8 +103,8 @@ sub   2048R/2718F60F 2020-07-28
 ```
 2. Con dicha informacion exportar la llave privada a un archivo .key el cual debemos entregarle al clienteB para que firme los documentos
 ```bash
-[root@undercloud ~]# gpg --output ~/jcalvo.key --armor --export B447D35A
-[root@undercloud ~]# file jcalvo.key
+[root@clienteA ~]# gpg --output ~/jcalvo.key --armor --export B447D35A
+[root@clienteA ~]# file jcalvo.key
 jcalvo.key: PGP public key block
 ```
 3. Enviar la clave al clienteB para que este haga la importacion y firme el documento
@@ -151,7 +151,7 @@ Use this key anyway? (y/N) y
 
 El archivo de resultado UNICAMENTE podra ser visualizado por quien tenga la clave privada, en este caso el clienteA, el cual si queire visualizar este documento debe ejecutar el siguiente comando:
 ```bash
-[root@undercloud ~]# gpg --decrypt README.txt.gpg > README.txt
+[root@clienteA ~]# gpg --decrypt README.txt.gpg > README.txt
     lqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqk
     x Please enter the passphrase to unlock the secret key for the OpenPGP certificate:     x
     x "Jose Manuel Calvo (Llave para envio y recepcion de documentos) <jcalvo@redhat.com>"  x
