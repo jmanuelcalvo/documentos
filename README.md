@@ -14,3 +14,4 @@ Documentos con referenias de comandos que uso con frequencia
 - [Pruebas de estres sobre servidores RHEL](Pruebas%20de%20estres%20sobre%20servidores%20RHEL.md)
 - [Implementar un Web server en Cirros para pruebas](Web%20server%20en%20Cirros.md)
 - [Ejecucion de Playbooks en Windows](Ansible%20y%20Windows.md)
+- [Encripcion de documentos con GPG](EncripcionGPG.md)
