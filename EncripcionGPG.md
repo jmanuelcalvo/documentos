@@ -174,3 +174,6 @@ gpg: encrypted with 2048-bit RSA key, ID 2718F60F, created 2020-07-28
 [root@clienteA ~]# more README.txt
 Archivo de Reame
 ```
+
+
+https://www.howtogeek.com/427982/how-to-encrypt-and-decrypt-files-with-gpg-on-linux/
