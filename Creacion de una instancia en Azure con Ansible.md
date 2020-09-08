@@ -175,3 +175,24 @@ https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-yum?view=azure-cli-
 
 [root@localhost ansible-playbooks]# ansible-playbook instancia.yml
 ```
+
+
+### Instalacion de modulos en Ansible o Ansible Tower
+
+Ansible venv:
+```
+1. su -
+2. cd /var/lib/awx/venv/ansible/bin
+3. source activate
+4. pip install ansible[azure] --upgrade --force
+5. deactivate
+```
+
+AWX venv:
+```
+1. su -
+2. cd /var/lib/awx/venv/awx/bin
+3. source activate
+4. pip install ansible[azure] --upgrade --force
+5. deactivate
+```
