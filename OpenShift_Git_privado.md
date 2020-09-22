@@ -1,4 +1,4 @@
-#Lanzar una aplicacion desde un git privado
+# Lanzar una aplicacion desde un git privado
 
 Primero crear un proyecto y lanzar una aplicacion
 ```
