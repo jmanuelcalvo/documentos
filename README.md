@@ -15,3 +15,4 @@ Documentos con referenias de comandos que uso con frequencia
 - [Implementar un Web server en Cirros para pruebas](Web%20server%20en%20Cirros.md)
 - [Ejecución de Playbooks en Windows](Ansible%20y%20Windows.md)
 - [Encripcion de documentos con GPG](EncripcionGPG.md)
+- [](OpenShift_Git_privado.md)
