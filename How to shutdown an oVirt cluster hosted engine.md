@@ -1,50 +1,61 @@
-Hi,
-       You can follow the steps below to do that.
+# Apagar un Cluster RHV hosted engine
 
-1) Stop all the virtual machines.
+1) Detenga todas las máquinas virtuales.
 
-2) Move all the storage domains other than hosted_storage to maintenance
-which will unmount them from all the nodes.
+2) Mueva todos los dominios de almacenamiento que no sean hosted_storage a mantenimiento lo que los desmontará de todos los nodos.
 
-3)  Move HE to global maintenance ´hosted-engine --set-maintenance --mode=global´
+3) Pasar el Hosted Engine a mantenimiento global
 
-4) stop HE vm by running the command ´hosted-engine --vm-shutdown´
+`hosted-engine --set-maintenance --mode=global`
 
-5) confirm that engine is down using the command ´hosted-engine --vm-status´
+4) Detener Hosted Engine vm ejecutando el comando
 
-6) stop ha agent and broker services on all the nodes by running the
-command: `systemctl stop ovirt-ha-broker ; systemctl stop ovirt-ha-agent`
+`hosted-engine --vm-shutdown`
 
-7) umount hosted-engine from all the hypervisors ´hosted-engine --disconnect-storage`
+5) Confirmar que engine está apagado utilizando el comando
 
-8) stop all the volumes.
+`hosted-engine --vm-status`
 
-9) power off all the hypervisors.
+6) Detener los servicios del agente ha y broker en todos los nodos ejecutando el
+comando:
+
+`systemctl stop ovirt-ha-broker ; systemctl stop ovirt-ha-agent`
+
+7) Desmontar el hosted-engine de todos los hipervisores
+
+`hosted-engine --disconnect-storage`
+
+8) Detener todos los volúmenes.
+
+9) Apagar todos los hipervisores.
 
 
-To bring it up back again below steps will help.
+# Iniciar un Cluster RHV hosted engine
+
+TPara que vuelva a subir, los siguientes pasos le ayudarán.
 
 
-1) Power on all the hypervisors.
+1) Encienda todos los hipervisores.
 
-2) start all the volumes
+2) Iniciar todos los volúmenes
 
-3) start ha agent and broker services on all the nodes by running the
-command 'systemctl start ovirt-ha-broker' ; 'systemctl start ovirt-ha-agent'
+3) Iniciar los servicios del agente ha y broker en todos los nodos ejecutando el
+comando:
 
-4) Move hosted-engine out of global maintenance by running the command
-hosted-engine
---set-maintenance --mode =none
+`systemctl start ovirt-ha-broker ; systemctl start ovirt-ha-agent`
 
-5) give some time for the HE to come up. check for hosted-engine
---vm-status to see if HE vm is up.
+4) Mueva el hosted-engine de mantenimiento global ejecutando el comando
 
-6) Activate all storage domains from UI.
+`hosted-engine --set-maintenance --mode =none`
 
-7) start all virtual machines.
+5) Dele un poco de tiempo para que la vm Hosted Engine suba. compruebe si la vm Hosted Engine vm está arriba.
 
-Hope this helps !!!
+`hosted-engine --vm-status`
 
-Thanks
 
-kasturi.
+6) Activar todos los dominios de almacenamiento desde la UI.
+
+7) Iniciar todas las máquinas virtuales.
+
+
+https://lists.ovirt.org/pipermail/users/2017-August/083665.html
