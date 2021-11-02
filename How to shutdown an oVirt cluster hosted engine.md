@@ -46,7 +46,7 @@ comando:
 
 4) Mueva el hosted-engine de mantenimiento global ejecutando el comando
 
-`hosted-engine --set-maintenance --mode =none`
+`hosted-engine --set-maintenance --mode=none`
 
 5) Dele un poco de tiempo para que la vm Hosted Engine suba. compruebe si la vm Hosted Engine vm está arriba.
 
