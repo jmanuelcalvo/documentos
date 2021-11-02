@@ -52,6 +52,9 @@ comando:
 
 `hosted-engine --vm-status`
 
+Puede monitorear el estado del manager con el comando
+
+`watch -d -n2 hosted-engine --vm-status`
 
 6) Activar todos los dominios de almacenamiento desde la UI.
 
