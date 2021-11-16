@@ -4,29 +4,38 @@ Pues bueno hoy por fin encontre como configurar el scroll y pense en documentarl
 
 En RHEL8, puede crear un archivo llamado para la configuracion de todas las cuentas `/etc/tmux.conf` o puede crear su propio archivo de configuracion para su perfil local `~/.tmux.conf`
 
+```
 [root@rhvh1 ~]# vi /etc/tmux.conf
 
 set -g mouse on
 set -g history-limit 50000
+```
 
 y de ahora en adelante, ya vas a poder hacer scroll con el mouse y con la segunda linea puede setear el numero de lineas que podra recordar en la sesion de tmux
 
 Otros comandos/convinaciones de letras utiles
 
+```
 ctrl b + d = Esta convinacion permite salir de la session
+```
 
 Para listar las sessiones activas
 
+```
 [root@rhvh1 ~]# tmux ls
 0: 1 windows (created Tue Nov 16 09:18:02 2021) [140x37]
 1: 1 windows (created Tue Nov 16 09:23:26 2021) [140x37]
+```
 
 Para conectarse a una session especifica
 
+```
 [root@rhvh1 ~]# tmux a -t 1
+```
 
 Es posible crear una sesion con un nombre especifico
 
+```
 [root@rhvh1 ~]# tmux new -s instalacion
 
 [root@rhvh1 ~]# tmux ls
@@ -35,17 +44,18 @@ Es posible crear una sesion con un nombre especifico
 instalacion: 1 windows (created Tue Nov 16 09:27:03 2021) [140x37]
 
 [root@rhvh1 ~]# tmux a -t instalacion
-
+```
 
 Una opcion interesante, es ingresando dentro de un Tmux es posible cambiarse de forma mas "grafica" entre sessiones con la convinacion
 
+```
 ctrl b + s
-
+```
 
 Para matar o eliminar uan session puedo ingresar a la session y darle el comando exit o tambien con la convinacion
 
-
+```
 [root@rhvh1 ~]# tmux kill-session -a -t 0
-
+```
 
 
