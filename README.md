@@ -18,4 +18,4 @@ Documentos con referenias de comandos que uso con frequencia
 - [Lanzar una aplicacion desde un git privado](OpenShift_Git_privado.md)
 - [Apagar un Cluster RHV hosted engine](How%20to%20shutdown%20an%20oVirt%20cluster%20hosted%20engine.md)
 - [Trabajando con TMUX](Scroll_en_tmux.md)
-- [Consultas y creacion de recursos en Vmware desde Mac con govc] (Vmware%20desde%20Mac%20con%20govc.md)
+- [Consultas y creacion de recursos en Vmware desde Mac con govc](Vmware%20desde%20Mac%20con%20govc.md)
