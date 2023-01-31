@@ -58,20 +58,28 @@ Name:                SDDC-Datacenter
   Virtual Machines:  4
   Networks:          1
   Datastores:        1
-  
+```
+
+```
 [jmanuelcalvo@Joses-MacBook ~]$ govc ls
 /SDDC-Datacenter/vm
 /SDDC-Datacenter/network
 /SDDC-Datacenter/host
 /SDDC-Datacenter/datastore
+```
 
+```
 [jmanuelcalvo@Joses-MacBook ~]$ govc ls /SDDC-Datacenter/network
 /SDDC-Datacenter/network/segment-sandbox-9l52q
 /SDDC-Datacenter/network/vmc-hostswitch
+```
 
+```
 [jmanuelcalvo@Joses-MacBook ~]$ govc ls /SDDC-Datacenter/datastore
 /SDDC-Datacenter/datastore/WorkloadDatastore
+```
 
+```
 [jmanuelcalvo@Joses-MacBook ~]$ govc datastore.info /SDDC-Datacenter/datastore/WorkloadDatastore
 Name:        WorkloadDatastore
   Path:      /SDDC-Datacenter/datastore/WorkloadDatastore
@@ -79,14 +87,17 @@ Name:        WorkloadDatastore
   URL:       ds:///vmfs/volumes/vsan:3b39c11653124420-83ebad53840b5fa6/
   Capacity:  31851.2 GB
   Free:      24376.1 GB  
+```
 
-
+```
 [jmanuelcalvo@Joses-MacBook ~]$ govc ls /SDDC-Datacenter/vm/Workloads/sandbox-9l52q
 /SDDC-Datacenter/vm/Workloads/sandbox-9l52q/diego-ansible01
 /SDDC-Datacenter/vm/Workloads/sandbox-9l52q/jmanuelcalvo-ansible02
 /SDDC-Datacenter/vm/Workloads/sandbox-9l52q/bastion
 /SDDC-Datacenter/vm/Workloads/sandbox-9l52q/vmlinux
+```
 
+```
 [jmanuelcalvo@Joses-MacBook ~]$ govc vm.info /SDDC-Datacenter/vm/Workloads/sandbox-9l52q/jmanuelcalvo-ansible02
 ```
 
