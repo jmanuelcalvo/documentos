@@ -102,6 +102,13 @@ Name:        WorkloadDatastore
 ```
 
 
+```
+[jmanuelcalvo@Joses-MacBook ~]$ govc vm.power -on=true /SDDC-Datacenter/vm/Workloads/sandbox-9l52q/jmanuelcalvo-ansible02
+Powering on VirtualMachine:vm-4116... OK
+[jmanuelcalvo@Joses-MacBook ~]$ govc vm.power -off=true /SDDC-Datacenter/vm/Workloads/sandbox-9l52q/jmanuelcalvo-ansible02
+Powering off VirtualMachine:vm-4116... OK
+```
+
 
 
 
