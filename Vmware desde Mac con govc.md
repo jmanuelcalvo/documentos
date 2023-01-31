@@ -3,10 +3,12 @@
 1. Instalacion de govc en Mac
 
 ´´´
+
 [jmanuelcalvo@Joses-MacBook ~]$ brew install govc
 ==> Fetching govc
 ==> Downloading https://ghcr.io/v2/homebrew/core/govc/manifests/0.30.1
 ...
+
 ´´´
 
 
