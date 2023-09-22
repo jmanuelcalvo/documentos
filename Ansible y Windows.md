@@ -446,3 +446,60 @@ $ pip -V
 * https://github.com/ansible/workshops/tree/devel/exercises/ansible_windows/5-adv-playbook
 
 * https://www.ansible.com/blog/connecting-to-a-windows-host
+
+
+
+
+
+============
+
+
+## Preparacion de Ansible Core e Integracion con los modulos de Windows
+
+[root@container ~]# yum install ansible-core
+
+
+[root@container ~]# cat win_inventory
+[win]
+192.168.64.4
+
+
+[win:vars]
+ansible_connection=winrm
+ansible_user=ansible
+ansible_password=ansible
+ansible_port= 5985
+ansible_winrm_server_cert_validation=ignore
+ansible_winrm_transport=basic
+ansible_winrm_scheme=http
+
+
+[root@container ~]#  ansible win -m win_ping -i /root/win_inventory
+192.168.64.4 | FAILED! => {
+    "msg": "The module win_ping was redirected to ansible.windows.win_ping, which could not be loaded."
+}
+
+[root@container ~]# ansible-galaxy collection install community.windows
+
+[root@container ~]#  ansible win -m win_ping -i /root/win_inventory
+192.168.64.4 | FAILED! => {
+    "msg": "winrm or requests is not installed: No module named 'winrm'"
+}
+
+Importante identificar la version de python que esta ejecutando Ansible
+
+[root@container ~]#  ansible win -m win_ping -i /root/win_inventory  -vv
+...
+  python version = 3.11.2
+...
+
+[root@container ~]# yum install python2-pip
+[root@container ~]# yum install python3-pip
+[root@container ~]# yum install python3.11-pip
+[root@container ~]# python3 -m pip install --upgrade pip
+
+
+
+[root@container ~]# python3.11 -m pip list
+[root@container ~]# python3.11 -m pip install pywinrm
+
