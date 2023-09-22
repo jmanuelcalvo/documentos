@@ -456,6 +456,7 @@ $ pip -V
 
 ## Preparacion de Ansible Core e Integracion con los modulos de Windows
 
+```
 [root@container ~]# yum install ansible-core
 
 
@@ -502,4 +503,6 @@ Importante identificar la version de python que esta ejecutando Ansible
 
 [root@container ~]# python3.11 -m pip list
 [root@container ~]# python3.11 -m pip install pywinrm
+
+```
 
