@@ -346,3 +346,42 @@ server {
         state: started
         restart: true
 ```
+
+
+* Ejecutar el playbook
+```
+[root@rhel9 nginx-ansible]# ansible-playbook  ngnix-ad-endpoint.yml
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+[WARNING]: Found variable using reserved name: port
+
+PLAY [Adicionar un endpoint al nginx] *****************************************************************************************************************************************
+
+TASK [Crear la carpeta del nuevo servicio Web] ********************************************************************************************************************************
+ok: [localhost]
+
+TASK [Crear un archivo index.html del dominio jmanuelcalvo.com] ***************************************************************************************************************
+ok: [localhost]
+
+TASK [Crear contenedor con servidor web] **************************************************************************************************************************************
+ok: [localhost]
+
+TASK [Crear un archivo de configuraion de un dominio de ngnix] ****************************************************************************************************************
+ok: [localhost]
+
+TASK [Reiniciar el contenedor de Ngnix para que tome los cambios] *************************************************************************************************************
+changed: [localhost]
+
+PLAY RECAP ********************************************************************************************************************************************************************
+localhost                  : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+[root@rhel9 nginx-ansible]# curl http://jmanuelcalvo.com
+<html>
+  <header>
+    <title>SysAdmin.com</title>
+  </header>
+  <body>
+    <p>This is the SysAdmin website hosted on the jmanuelcalvo.com  domain</p>
+  </body>
+</html>
+[root@rhel9 nginx-ansible]#
+```
