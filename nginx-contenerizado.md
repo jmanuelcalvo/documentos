@@ -266,3 +266,26 @@ success
 
 
 Source: https://www.redhat.com/sysadmin/podman-nginx-multidomain-applications
+
+
+
+# Ejecucion de las tareas con Ansible-core
+
+```
+[root@rhel9 ~]# mkdir nginx-ansible
+[root@rhel9 ~]# cd nginx-ansible/
+[root@rhel9 nginx-ansible]# yum install ansible-core
+[root@rhel9 nginx-ansible]# ansible-galaxy collection install containers.podman
+
+[root@rhel9 nginx-ansible]# vi web.conf.j2
+server {
+  listen {{ puerto }};
+  server_name {{ dominio }};
+
+  location / {
+    proxy_pass http://{{ endpoint }};
+  }
+}
+
+
+```
