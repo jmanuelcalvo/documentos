@@ -277,15 +277,72 @@ Source: https://www.redhat.com/sysadmin/podman-nginx-multidomain-applications
 [root@rhel9 nginx-ansible]# yum install ansible-core
 [root@rhel9 nginx-ansible]# ansible-galaxy collection install containers.podman
 
-[root@rhel9 nginx-ansible]# vi web.conf.j2
+[root@rhel9 nginx-ansible]# mkdir files/
+[root@rhel9 nginx-ansible]# cd files/cat 
+[root@rhel9 files]# vi web.conf.j2
 server {
   listen {{ puerto }};
   server_name {{ dominio }};
 
   location / {
-    proxy_pass http://{{ endpoint }};
+    proxy_pass http://{{ endpoint }}:{{ port }};
   }
 }
 
+[root@rhel9 files]# cat index.html.j2
+<html>
+  <header>
+    <title>SysAdmin.com</title>
+  </header>
+  <body>
+    <p>This is the SysAdmin website hosted on the {{ dominio }}  domain</p>
+  </body>
+</html>
 
+[root@rhel9 files]# cd ../
+
+[root@rhel9 nginx-ansible]# vim ngnix-ad-endpoint.yml
+---
+- name: Adicionar un endpoint al nginx
+  gather_facts: false
+  hosts: localhost
+  connection: local
+  vars:
+    - puerto: 80
+    - dominio: jmanuelcalvo.com
+    - endpoint: 192.168.64.9
+    - port: 8082
+  tasks:
+
+    - name: Crear la carpeta del nuevo servicio Web
+      ansible.builtin.file:
+        path: "/root/{{ dominio }}"
+        state: directory
+        mode: '0755'
+
+    - name: Crear un archivo index.html del dominio {{ dominio }}
+      ansible.builtin.template:
+        src: files/index.html.j2
+        dest: "/root/{{ dominio }}/index.html"
+        setype: container_file_t
+
+    - name: Crear contenedor con servidor web
+      containers.podman.podman_container:
+        name: "{{ dominio }}"
+        image: docker.io/library/httpd
+        ports: "{{ port }}:80"
+        volumes: "/root/{{ dominio }}:/usr/local/apache2/htdocs:Z"
+
+    - name: Crear un archivo de configuraion de un dominio de ngnix
+      ansible.builtin.template:
+        src: files/web.conf.j2
+        dest: "/root/nginx/{{ dominio }}.conf"
+        setype: container_file_t
+
+    - name: Reiniciar el contenedor de Ngnix para que tome los cambios
+      containers.podman.podman_container:
+        name: nginx
+        image: docker.io/library/nginx
+        state: started
+        restart: true
 ```
